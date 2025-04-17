@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Management - AgriWare</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 70%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-remove {
+            background-color: red;
+            color: white;
+            padding: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Supplier Management</h2>
+
+        <!-- Supplier Form -->
+        <form id="supplierForm">
+            <input type="text" id="supplierName" placeholder="Supplier Name" required>
+            <input type="text" id="supplierContact" placeholder="Contact Info" required>
+            <input type="text" id="supplierOrderHistory" placeholder="Order History">
+            <select id="supplierStatus">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+            <button type="submit">Add Supplier</button>
+        </form>
+
+        <!-- Supplier Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Supplier Name</th>
+                    <th>Contact</th>
+                    <th>Order History</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="supplierTable">
+                <!-- Suppliers will be added here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let suppliers = JSON.parse(localStorage.getItem("suppliers")) || [];
+
+        function renderTable() {
+            const table = document.getElementById("supplierTable");
+            table.innerHTML = "";
+            suppliers.forEach((supplier, index) => {
+                let row = table.insertRow();
+                row.innerHTML = `
+                    <td>${supplier.name}</td>
+                    <td>${supplier.contact}</td>
+                    <td>${supplier.orderHistory || "N/A"}</td>
+                    <td>
+                        <select onchange="updateStatus(${index}, this.value)">
+                            <option value="Active" ${supplier.status === "Active" ? "selected" : ""}>Active</option>
+                            <option value="Inactive" ${supplier.status === "Inactive" ? "selected" : ""}>Inactive</option>
+                        </select>
+                    </td>
+                    <td><button class="btn-remove" onclick="removeSupplier(${index})">Remove</button></td>
+                `;
+            });
+            localStorage.setItem("suppliers", JSON.stringify(suppliers));
+        }
+
+        function addSupplier(event) {
+            event.preventDefault();
+            let name = document.getElementById("supplierName").value.trim();
+            let contact = document.getElementById("supplierContact").value.trim();
+            let orderHistory = document.getElementById("supplierOrderHistory").value.trim();
+            let status = document.getElementById("supplierStatus").value;
+
+            if (name === "" || contact === "") {
+                alert("Please enter all required fields.");
+                return;
+            }
+
+            suppliers.push({ name, contact, orderHistory, status });
+            document.getElementById("supplierForm").reset();
+            renderTable();
+        }
+
+        function removeSupplier(index) {
+            suppliers.splice(index, 1);
+            renderTable();
+        }
+
+        function updateStatus(index, newStatus) {
+            suppliers[index].status = newStatus;
+            localStorage.setItem("suppliers", JSON.stringify(suppliers));
+        }
+
+        document.getElementById("supplierForm").addEventListener("submit", addSupplier);
+        renderTable();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Agriware</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style/common.css">
+    <link rel="stylesheet" href="style/nav.css">
+    <link rel="stylesheet" href="style/tester.css">
+    <link rel="stylesheet" href="style/footer.css">
+    <link rel="stylesheet" href="style/login.css">
+    <link rel="stylesheet" href="style/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid d-flex align-items-center">
+            <a class="navbar-brand" href="index2.html">AgriWare</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="index2.html">Home</a>
+                    <a class="nav-link" href="about-us.html">About Us</a>
+                </div>
+            </div>
+            <div class="ms-auto d-flex align-items-center">
+                <a href="addtocart.html" class="cart-icon position-relative me-3">
+                    <i class="fas fa-shopping-cart fa-2x"></i>
+                    <span
+                        class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                </a>
+
+                <!-- Login and Sign Out Buttons -->
+                <div class="d-flex">
+                    <a href="login.html" class="btn btn-primary me-2">Login</a>
+                    <a href="#" id="signOut" class="btn btn-danger">Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1>AgriWare</h1>
+            <p style="color: black;">Innovative Solutions for a Sustainable Future</p>
+        </div>
+    </section>
+    <nav class="navbar navbar-custom">
+        <div class="container d-flex">
+<!-- First Column: Agricultural Fertilizers -->
+<div class="nav-item dropdown">
+    <a class="nav-link active dropdown-toggle" href="#" id="categoryOne" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="icon-container">
+            <span style="font-size: 20px;"><i class="fa-solid fa-seedling"></i> Agricultural Fertilizers</span>
+        </div>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="categoryOne">
+        <li><a class="dropdown-item" href="#" data-target="natural-fertilizers">Organic Fertilizers</a></li>
+        <li><a class="dropdown-item" href="#" data-target="chemical-fertilizer">Chemical Fertilizers</a></li>
+        <li><a class="dropdown-item" href="#" data-target="chemical-fertilize">Chicken Manure</a></li>
+        <li><a class="dropdown-item" href="#" data-target="chemical-fertiliz">Cow Manure</a></li>
+    </ul>
+</div>
+
+<!-- Second Column: Agricultural Chemicals -->
+<div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="categoryTwo" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="icon-container">
+            <span style="font-size: 20px;"><i class="fa-solid fa-seedling"></i> Agricultural Chemicals</span>
+        </div>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="categoryTwo">
+        <li><a class="dropdown-item" href="#" data-target="agricultural-chemicals">Agricultural Pesticides</a></li>
+        <li><a class="dropdown-item" href="#" data-target="chemical-fertili">Chemical Pesticides</a></li>
+    </ul>
+</div>
+</div>
+</nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center my-4">
+                <h2 class="related-heading">Products</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <h2 id="natural-fertilizers" class="featured-heading mb-4">Fertilizer Agricultural</h2>
+        <div id="featuredCarousel1" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <!-- First Product -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer DAP</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">20</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer DAP"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Second Product -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="A-an.jpg" class="card-img-top" alt="Product 2">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer A-An</p>
+                                    <p class="product-price text-muted">Rs. 105,000</p>
+                                    <!-- Stock display for this product -->
+                                    <p class="stock-count">Stock: <span class="stock-quantity"
+                                            data-product="Fertilizer A-An">17</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer A-An"
+                                        data-product-price="105000" data-product-image="A-an.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 3">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer NP</p>
+                                    <p class="product-price text-muted">Rs. 100,000</p>
+                                    <!-- Stock display for this product -->
+                                    <p class="stock-count">Stock: <span class="stock-quantity"
+                                            data-product="Fertilizer NP">25</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer NP"
+                                        data-product-price="100000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm" data-product-name="Fertilizer N">
+                                <img src="je.jpg" class="card-img-top" alt="Product 4">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer N</p>
+                                    <p class="product-price text-muted">Rs. 100,999</p>
+                                    <!-- Stock display for this product -->
+                                    <p class="stock-count">Stock: <span class="stock-quantity"
+                                            data-product="Fertilizer N">40</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer N"
+                                        data-product-price="100999" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Additional Products as needed... -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div id="featuredCarousel1" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer D</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">20</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer D"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">30</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer Dapp</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">23</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer Dapp"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer Dappp</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer Dapp"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more carousel items as needed -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div id="featuredCarousel1" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer Dop</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer Dop"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer Dopp</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer Dopp"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer Doppp</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer Doppp"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer dap</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer dap"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Section for "Fertilizer Chemical " -->
+    <div class="container mt-5">
+        <h2 id="chemical-fertilizer" class="featured-heading mb-4">Fertilizer Chemical </h2>
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer NPK</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer NPK"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer NP</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer NP"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer N</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer N"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer npk</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer npk"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer np</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer np"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer n</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer n"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer NPKK</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer NPKK"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer NPKKK</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer NPKKK"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer NPkK</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer NPkK"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer NPKKk</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer NPKk"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer NPKkK</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer NPKkK"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer NPKKKk</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer NPKKKk"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <h2 id="chemical-fertilize" class="featured-heading mb-4">Fertilizer Chicken Manure</h2>
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer Chicken Manure</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer Chicken Manure"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer Chicken Manure</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer Chicken Manure"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer Chicken Manure</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer Chicken Manure"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Fertilizer Chicken Manure</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Fertilizer Chicken Manure"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <h2 id="chemical-fertiliz" class="featured-heading mb-4">Cow Manure Fertilizer</h2>
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="je.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Cow Manure Fertilizer</p>
+                                    <p class="product-price text-muted">Rs. 195,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Cow Manure Fertilizer"
+                                        data-product-price="195000" data-product-image="je.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <h2 id="chemical-fertili" class="featured-heading mb-4">Agro Chemicals</h2>
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="tnam.jpg" class="card-img-top" alt="Product 5">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 200,000</p>
+                                    <!-- Stock display for this product -->
+                                    <p class="stock-count">Stock: <span class="stock-quantity"
+                                            data-product="Agro Chemicals">20</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="200000" data-product-image="tnam.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​ </p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals​ "
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals "
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals​"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals​"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals​"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals​"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals​"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals​"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals​</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <h2 id="agricultural-chemicals" class="featured-heading mb-4">Agro Chemicals</h2>
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div id="featuredCarousel2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more products -->
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card product-card shadow-sm">
+                                <img src="Forfire-2.jpg" class="card-img-top" alt="Product 1">
+                                <div class="card-body text-center">
+                                    <p class="product-name font-weight-bold">Agro Chemicals</p>
+                                    <p class="product-price text-muted">Rs. 220,000</p>
+                                    <p class="stock-count">Stock: <span class="stock-quantity">24</span></p>
+                                    <div class="quantity-controls d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="decrease">-</button>
+                                        <span class="quantity mx-3">1</span>
+                                        <button class="btn btn-outline-primary quantity-btn"
+                                            data-action="increase">+</button>
+                                    </div>
+                                    <button class="btn btn-primary mt-3 add-to-cart" data-product-name="Agro Chemicals"
+                                        data-product-price="220000" data-product-image="Forfire-2.jpg">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+
+    <section class="background-section">
+        <div class="content">
+            <p style="color: black">ANY QUESTION YOU HAVE</p>
+            <button type="button" class="btn custom-btn-1">MAKE A CALL</button>
+            <button type="button" class="btn custom-btn-3">CONTACT US</button>
+        </div>
+    </section>
+    <button id="scrollToTopBtn" class="scroll-to-top-btn">
+        <i class="fa-solid fa-chevron-up"></i> <!-- You can use an icon or text -->
+    </button>
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center">
+                    <a class="navbar-brand" href="index2.html">
+                        AgriWare
+                    </a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <p class="contact-info">
+                        <span>
+                            Tel: +855 31 888 0809 / +855 92 880 809<br>
+                            Address: National Highway 68,<br>
+                            Doun Kaen Village, Samraong Commune,<br>
+                            Samraong City, Oddar Meanchey Province,<br>
+                            Cambodia
+                        </span>
+                    </p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="https://www.facebook.com/profile.php?id=100069689106894&mibextid=LQQJ4d"
+                        class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://t.me/daviddawson0809" class="social-icon">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                </div>
+            </div>
+            <hr class="footer-line">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div class="footer-text-group">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script/Home.js"></script>
+    <script src="script/home2.js"></script>
+    <script src="script/home3.js"></script>
+    <script src="script/home4.js"></script>
+    <script src="script/store.js"></script>
+    <script src="script/addtocart.js"></script>
+    <script src="script/invoice.js"></script>
+    <script src="script/Qicon.js"></script>
+    <script src="script/login.js"></script>
+    <script src="script/logout.js"></script>
+    <script src="script/notification.js"></script>
+    <script src="script/Qstorage.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
