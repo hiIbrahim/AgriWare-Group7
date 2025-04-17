@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Agriware</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="about-us.css">
+  <link rel="stylesheet" href="footer.css">
+  <link rel="stylesheet" href="scroll.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* Background image styling */
+    body {
+      background: url('image.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+    
+    /* Semi-transparent overlay for better readability */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.85);
+      z-index: -1;
+    }
+    
+    /* Ensure content stays above the background */
+    .container, nav, section {
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid d-flex align-items-center">
+        <a class="navbar-brand" href="index2.html">
+            AgriWare
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="index2.html">Home​​</a>
+                <a class="nav-link" href="about-us.html">About Us
+                </a>
+            </div>
+        </div>
+        <div class="ms-auto">
+            <a href="addtocart.html" class="cart-icon">
+                <i class="fas fa-shopping-cart fa-2x"></i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1>AgriWare</h1>
+      <p style="color: black;">Innovative Solutions for a Sustainable Future</p>
+    </div>
+  </section>
+  <section class="agriware-section">
+    <div class="container d-flex flex-column flex-md-row align-items-center">
+        <!-- Left Image Section -->
+        <div class="w-100 w-md-50 mb-4 mb-md-0">
+            <img src="sign-up-bg.avif" alt="Agriculture Image" class="img-fluid">
+        </div>
+
+        <!-- Right Text Content Section -->
+        <div class="agriware-content w-100 w-md-50 ms-md-4 text-center text-md-start">
+            <h1 style="text-align: center;">AgriWare</h1>
+            <p style="margin: 30px;">Agri Ware is the first modern fertilizer and agricultural supply warehouse serving farmers in Oddar Meanchey Province, with a strong commitment to product quality. Agri Ware also collaborates with Davy Rice Warehouse to ensure the purchase of all farmers' produce.
+            </p>
+        </div>
+    </div>
+</section>
+
+  
+  <!-- Company Values Section -->
+  <section class="values-section">
+    <div class="container text-center">
+      <h2>Our Values</h2>
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <div class="value-box">
+            <i class="fas fa-leaf fa-3x"></i>
+            <h4>Sustainability</h4>
+            <p>We believe in creating products that protect our planet for future generations.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="value-box">
+            <i class="fas fa-lightbulb fa-3x"></i>
+            <h4>Innovation</h4>
+            <p>Our team thrives on developing cutting-edge agricultural solutions.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="value-box">
+            <i class="fas fa-hands-helping fa-3x"></i>
+            <h4>Community</h4>
+            <p>We aim to empower farmers and local communities with our products.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+<script src="/script/scroll.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+
+</html>

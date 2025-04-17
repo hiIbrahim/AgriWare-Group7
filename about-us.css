@@ -1,0 +1,106 @@
+.hero-section {
+    background-image: url('/Img/light-gray-background-abstract-texture-banner_149326-3792.avif');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #218838;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.values-section {
+    padding: 60px 0;
+}
+
+.values-section .value-box {
+    text-align: center;
+    padding: 20px;
+}
+
+.value-box h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.value-box p {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.team-section {
+    background-color: #28a745;
+    color: white;
+    padding: 60px 0;
+}
+
+.team-section h2 {
+    margin-bottom: 40px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.team-member {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.team-member img {
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.team-member h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.team-member p {
+    font-size: 0.9rem;
+}
+
+.agriware-section {
+    padding: 50px 0;
+}
+
+.agriware-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.agriware-content {
+    font-size: 1.2rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+.agriware-content h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .agriware-section {
+        flex-direction: column;
+    }
+
+    .agriware-content {
+        margin-top: 20px;
+    }
+}
