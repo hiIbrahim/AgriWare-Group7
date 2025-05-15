@@ -1,0 +1,124 @@
+.navbar-custom {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+.nav-link {
+    display: block;
+    padding: 15px;
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.nav-link.active {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.icon-container img {
+    max-width: 40px;
+    height: auto;
+}
+
+.icon-label {
+    margin-top: 8px;
+    font-size: 12px;
+}
+/* Featured Heading */
+.featured-heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Product Card */
+.product-card {
+    border: none;
+    transition: transform 0.2s;
+}
+.product-price p:hover{
+    color: #28a745;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.product-name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #4b4b4b;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    color: #28a745;
+    margin-bottom: 10px;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-right: 10px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #28a745;
+    border-radius: 50%;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: #218838;
+}
+.product-card {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .product-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+  
+  .product-card h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .product-card p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+  }

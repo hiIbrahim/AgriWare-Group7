@@ -1,0 +1,23 @@
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 20px; /* Distance from the bottom of the screen */
+    right: 20px; /* Distance from the right of the screen */
+    background-color: #218838; /* Background color */
+    color: #fff; /* Text color */
+    border: none;
+    border-radius: 50%; /* Rounded button */
+    width: 50px; /* Button width */
+    height: 50px; /* Button height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for better visibility */
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 1000; /* Ensure it’s above other content */
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s; /* Smooth transition for fade in/out */
+}
+.scroll-to-top-btn.show {
+    opacity: 1;
+}
