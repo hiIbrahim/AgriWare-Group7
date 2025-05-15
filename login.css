@@ -1,0 +1,38 @@
+.profile-icon, .cart-icon {
+    color: #28a745; /* Adjust color as needed */
+}
+.profile-icon:hover, .cart-icon:hover {
+    color: #89d61d; /* Adjust hover color as needed */
+}
+.modal-content {
+    border-radius: 15px;
+}
+.modal-header {
+    border-bottom: none;
+}
+.modal-footer {
+    border-top: none;
+}
+.modal-body {
+    padding: 2rem;
+}
+.btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.btn-primary:hover {
+    background-color: #89d61d;
+    border-color: #89d61d;
+}
+/* Initially disable page interaction */
+.page-content {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Enable page interaction when logged in */
+.page-content.active {
+    pointer-events: auto;
+    opacity: 1;
+}
+
