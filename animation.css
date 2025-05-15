@@ -1,0 +1,67 @@
+.add-to-cart-animation {
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+.notification.show {
+    opacity: 1;
+}
+/* Default button styles */
+.quantity-controls .quantity-btn {
+    border-color: #28a745; /* Default border color */
+    color: #28a745; /* Default text color */
+}
+
+/* Hover effect for buttons */
+.quantity-controls .quantity-btn:hover {
+    border-color: #89d61d; /* Darker border color on hover */
+    color: #89d61d; /* Darker text color on hover */
+}
+
+/* Optional: Focus effect for accessibility */
+.quantity-controls .quantity-btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(142, 255, 105, 0.25); /* Custom focus shadow */
+}
+
+/* Optional: Disabled button styles */
+.quantity-controls .quantity-btn:disabled {
+    border-color: #d6d6d6; /* Border color for disabled state */
+    color: #d6d6d6; /* Text color for disabled state */
+}
+.bs-btn-hover-bg {
+    background-color: #89d61d; /* Background color for hover effect */
+    color: #fff; /* Text color for better contrast */
+}
+
+.bs-btn-hover-border-color {
+    border-color: #89d61d; /* Border color for hover effect */
+    color: #89d61d; /* Text color for better contrast */
+}
+
+/* Optional: To ensure the hover state gets applied, you might need to use these styles */
+.quantity-controls .quantity-btn:hover {
+    background-color: #89d61d; /* Background color on hover */
+    border-color: #89d61d; /* Border color on hover */
+    color: #fff; /* Text color on hover */
+}

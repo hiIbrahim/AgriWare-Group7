@@ -1,0 +1,650 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management - AgriWare</title>
+    <style>
+        /* Modern Color Scheme */
+        :root {
+            --primary-color: #2c7873;
+            --secondary-color: #6fb98f;
+            --accent-color: #f8b400;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --danger-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 28px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+            h2::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                height: 3px;
+                background: var(--accent-color);
+            }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            background: rgba(108, 185, 143, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input, select, button {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+            input:focus, select:focus {
+                outline: none;
+                border-color: var(--secondary-color);
+                box-shadow: 0 0 0 3px rgba(111, 185, 143, 0.2);
+            }
+
+        input {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        select {
+            flex: 1;
+            min-width: 150px;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 15px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            min-width: 120px;
+        }
+
+            button:hover {
+                background-color: #235d59;
+                transform: translateY(-2px);
+            }
+
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+            .search-container input {
+                width: 100%;
+                padding-left: 40px;
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' viewBox='0 0 16 16'%3e%3cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3e%3c/svg%3e");
+                background-repeat: no-repeat;
+                background-position: 15px center;
+            }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(108, 185, 143, 0.05);
+        }
+
+        tr:hover {
+            background-color: rgba(108, 185, 143, 0.1);
+        }
+
+        /* Employee Photo */
+        .employee-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--secondary-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Buttons */
+        .btn-remove {
+            background-color: var(--danger-color);
+            padding: 8px 15px;
+        }
+
+            .btn-remove:hover {
+                background-color: #c0392b;
+            }
+
+        .btn-present {
+            background-color: var(--success-color);
+        }
+
+            .btn-present:hover {
+                background-color: #27ae60;
+            }
+
+        .btn-absent {
+            background-color: var(--warning-color);
+            color: var(--dark-color);
+        }
+
+            .btn-absent:hover {
+                background-color: #e67e22;
+            }
+
+        /* Attendance Controls */
+        .attendance-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .month-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .month-selector select {
+                padding: 8px 12px;
+                border-radius: 6px;
+                background-color: white;
+            }
+
+        /* Progress bar */
+        .progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 20px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            text-align: center;
+            color: white;
+            line-height: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            transition: width 0.5s ease;
+        }
+
+        /* Salary styling */
+        .salary-input {
+            width: 90px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Photo upload button */
+        .photo-upload {
+            display: none;
+        }
+
+        .upload-label {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+            .upload-label:hover {
+                background-color: #e6a800;
+                transform: translateY(-2px);
+            }
+
+        /* Pagination */
+        .pagination {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .pagination button {
+                min-width: 100px;
+                padding: 10px 15px;
+            }
+
+                .pagination button:disabled {
+                    background-color: #bdc3c7;
+                    cursor: not-allowed;
+                    transform: none;
+                }
+
+        .page-info {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 0 15px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            form {
+                flex-direction: column;
+            }
+
+            input, select, button {
+                width: 100%;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .attendance-controls {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Staff Management - AgriWare</h2>
+
+        <!-- Employee Form -->
+        <form id="staffForm">
+            <input type="text" id="name" placeholder="Employee Name" required>
+            <select id="role" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="Worker">Worker</option>
+                <option value="Supervisor">Supervisor</option>
+                <option value="Manager">Manager</option>
+            </select>
+            <input type="number" id="salary" placeholder="Monthly Salary ($)" min="0" required>
+            <input type="file" id="photoUpload" class="photo-upload" accept="image/*">
+            <label for="photoUpload" class="upload-label">Upload Photo</label>
+            <button type="submit">Add Employee</button>
+        </form>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by name, role or ID..." oninput="searchEmployees()">
+        </div>
+
+        <!-- Employee Table -->
+        <div style="max-height: 600px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Salary</th>
+                        <th>Attendance</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="staffTable">
+                    <!-- Employees will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <button onclick="prevPage()" id="prevBtn">Previous</button>
+            <span class="page-info" id="pageInfo">Page 1 of 1</span>
+            <button onclick="nextPage()" id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <script>
+    let employees = JSON.parse(localStorage.getItem("employees")) || [];
+    let currentPage = 1;
+    const rowsPerPage = 5;
+    let selectedPhoto = null;
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    // Initialize with sample data if empty
+    if (employees.length === 0) {
+        employees = [
+            {
+                id: 1,
+                name: "John Doe",
+                role: "Worker",
+                salary: 1200,
+                attendance: {
+                    [currentYear]: {
+                        [currentMonth]: Array(getDaysInMonth(currentYear, currentMonth)).fill('unmarked')
+                    }
+                },
+                photo: 'https://randomuser.me/api/portraits/men/1.jpg'
+            },
+            {
+                id: 2,
+                name: "Jane Smith",
+                role: "Supervisor",
+                salary: 1800,
+                attendance: {
+                    [currentYear]: {
+                        [currentMonth]: Array(getDaysInMonth(currentYear, currentMonth)).fill('unmarked')
+                    }
+                },
+                photo: 'https://randomuser.me/api/portraits/women/1.jpg'
+            },
+            {
+                id: 3,
+                name: "Mike Johnson",
+                role: "Manager",
+                salary: 2500,
+                attendance: {
+                    [currentYear]: {
+                        [currentMonth]: Array(getDaysInMonth(currentYear, currentMonth)).fill('unmarked')
+                    }
+                },
+                photo: 'https://randomuser.me/api/portraits/men/2.jpg'
+            }
+        ];
+        saveEmployees();
+    }
+
+    // Helper function to get days in month
+    function getDaysInMonth(year, month) {
+        return new Date(year, month + 1, 0).getDate();
+    }
+
+    // Handle photo upload
+    document.getElementById('photoUpload').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                selectedPhoto = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function generateId() {
+        return employees.length > 0 ? Math.max(...employees.map(e => e.id)) + 1 : 1;
+    }
+
+    function renderTable() {
+        const table = document.getElementById("staffTable");
+        table.innerHTML = "";
+
+        let start = (currentPage - 1) * rowsPerPage;
+        let end = start + rowsPerPage;
+        let paginatedItems = employees.slice(start, end);
+        const totalPages = Math.ceil(employees.length / rowsPerPage);
+
+        if (paginatedItems.length === 0 && currentPage > 1) {
+            currentPage--;
+            renderTable();
+            return;
+        }
+
+        paginatedItems.forEach((emp, index) => {
+            // Get current month attendance
+            const year = currentYear;
+            const month = currentMonth;
+            const daysInMonth = getDaysInMonth(year, month);
+
+            // Initialize attendance if not exists
+            if (!emp.attendance) emp.attendance = {};
+            if (!emp.attendance[year]) emp.attendance[year] = {};
+            if (!emp.attendance[year][month]) {
+                emp.attendance[year][month] = Array(daysInMonth).fill('unmarked');
+            }
+
+            const monthAttendance = emp.attendance[year][month];
+            const presentDays = monthAttendance.filter(a => a === 'present').length;
+            const absentDays = monthAttendance.filter(a => a === 'absent').length;
+            const attendancePercentage = Math.round((presentDays / daysInMonth) * 100);
+
+            let row = table.insertRow();
+            row.innerHTML = `
+                <td><img src="${emp.photo || 'https://via.placeholder.com/50'}" class="employee-photo" alt="${emp.name}"></td>
+                <td>${emp.id}</td>
+                <td>${emp.name}</td>
+                <td>
+                    <select onchange="updateEmployee(${start + index}, 'role', this.value)">
+                        <option value="Worker" ${emp.role === "Worker" ? "selected" : ""}>Worker</option>
+                        <option value="Supervisor" ${emp.role === "Supervisor" ? "selected" : ""}>Supervisor</option>
+                        <option value="Manager" ${emp.role === "Manager" ? "selected" : ""}>Manager</option>
+                    </select>
+                </td>
+                <td>
+                    $<input type="number" class="salary-input" value="${emp.salary || 0}" min="0"
+                           onchange="updateEmployee(${start + index}, 'salary', this.value)">
+                </td>
+                <td>
+                    <div class="attendance-controls">
+                        <div class="month-selector">
+                            <span>${new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
+                        </div>
+                        <div>
+                            <button class="btn-present" onclick="markAttendance(${start + index}, 'present')">Present</button>
+                            <button class="btn-absent" onclick="markAttendance(${start + index}, 'absent')">Absent</button>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: ${attendancePercentage}%">
+                            ${attendancePercentage}%
+                        </div>
+                    </div>
+                    <small>${presentDays} present / ${absentDays} absent / ${daysInMonth - presentDays - absentDays} unmarked</small>
+                </td>
+                <td>
+                    <button class="btn-remove" onclick="removeEmployee(${start + index})">Remove</button>
+                </td>
+            `;
+        });
+
+        document.getElementById("pageInfo").textContent = `Page ${currentPage} of ${totalPages}`;
+        document.getElementById("prevBtn").disabled = currentPage === 1;
+        document.getElementById("nextBtn").disabled = currentPage === totalPages || totalPages === 0;
+    }
+
+    function addEmployee(event) {
+        event.preventDefault();
+        let name = document.getElementById("name").value.trim();
+        let role = document.getElementById("role").value;
+        let salary = parseFloat(document.getElementById("salary").value);
+
+        if (name === "") {
+            alert("Please enter a valid name.");
+            return;
+        }
+
+        if (role === "" || role === "Select Role") {
+            alert("Please select a valid role.");
+            return;
+        }
+
+        if (isNaN(salary) || salary < 0) {
+            alert("Please enter a valid salary.");
+            return;
+        }
+
+        const daysInMonth = getDaysInMonth(currentYear, currentMonth);
+
+        employees.push({
+            id: generateId(),
+            name,
+            role,
+            salary,
+            attendance: {
+                [currentYear]: {
+                    [currentMonth]: Array(daysInMonth).fill('unmarked')
+                }
+            },
+            photo: selectedPhoto || 'https://via.placeholder.com/50'
+        });
+
+        // Reset form
+        document.getElementById("staffForm").reset();
+        document.getElementById("role").value = "";
+        selectedPhoto = null;
+        saveEmployees();
+        renderTable();
+    }
+
+    function removeEmployee(index) {
+        if (confirm("Are you sure you want to remove this employee?")) {
+            employees.splice(index, 1);
+            saveEmployees();
+            renderTable();
+        }
+    }
+
+    function updateEmployee(index, field, value) {
+        if (field === 'salary') {
+            value = parseFloat(value);
+            if (isNaN(value)) return;
+        }
+        employees[index][field] = value;
+        saveEmployees();
+    }
+
+    function markAttendance(index, status) {
+        const emp = employees[index];
+        const year = currentYear;
+        const month = currentMonth;
+
+        // Find first unmarked day
+        const dayIndex = emp.attendance[year][month].findIndex(a => a === 'unmarked');
+
+        if (dayIndex !== -1) {
+            emp.attendance[year][month][dayIndex] = status;
+            saveEmployees();
+            renderTable();
+        } else {
+            alert(`All days for ${new Date(year, month).toLocaleString('default', { month: 'long' })} have been marked.`);
+        }
+    }
+
+    function searchEmployees() {
+        const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        let allEmployees = JSON.parse(localStorage.getItem("employees")) || [];
+
+        if (query) {
+            employees = allEmployees.filter(emp =>
+                emp.name.toLowerCase().includes(query) ||
+                emp.role.toLowerCase().includes(query) ||
+                emp.id.toString().includes(query)
+            );
+        } else {
+            employees = [...allEmployees];
+        }
+
+        currentPage = 1;
+        renderTable();
+    }
+
+    function nextPage() {
+        const totalPages = Math.ceil(employees.length / rowsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable();
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+        }
+    }
+
+    function saveEmployees() {
+        localStorage.setItem("employees", JSON.stringify(employees));
+    }
+
+    document.getElementById("staffForm").addEventListener("submit", addEmployee);
+    renderTable();
+    </script>
+
+</body>
+</html>
