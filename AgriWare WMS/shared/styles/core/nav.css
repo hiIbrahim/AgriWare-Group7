@@ -1,0 +1,179 @@
+.navbar-custom {
+  background-color: var(--admin-primary, #2c7873);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Role-specific backgrounds */
+.navbar-custom[data-role="staff"] {
+  background-color: var(--staff-primary, #6fb98f);
+}
+.navbar-custom[data-role="worker"] {
+  background-color: var(--worker-primary, #f8b400);
+}
+
+/* Active link styling */
+.nav-link.active {
+  font-weight: 600;
+  position: relative;
+}
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: white;
+}
+
+/* Role badge transitions */
+#roleBadge {
+  transition: all 0.3s ease;
+}
+
+/* Hidden elements */
+[data-roles].d-none,
+[data-required-permission].d-none {
+  display: none !important;
+}
+
+
+
+
+
+
+/* Navbar base styles */
+.navbar {
+  padding: 0.8rem 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+/* Role-specific colors */
+.navbar-admin {
+  background-color: #2c7873;
+}
+.navbar-staff {
+  background-color: #6fb98f;
+}
+.navbar-worker {
+  background-color: #004d61;
+}
+
+/* Mobile menu */
+.mobile-menu-admin { background-color: #2c7873; }
+.mobile-menu-staff { background-color: #6fb98f; }
+.mobile-menu-worker { background-color: #004d61; }
+
+/* Nav items */
+.nav-link {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}
+
+
+/* Ensure proper spacing for new items */
+.nav-login,
+.nav-profile {
+  margin-left: 0.5rem;
+}
+
+/* Profile link highlight */
+.nav-profile .nav-link {
+  color: rgba(255,255,255,0.9);
+}
+.nav-profile .nav-link:hover {
+  color: white;
+}
+
+/* Logout button styles */
+#logoutSection {
+  transition: opacity 0.3s ease;
+}
+
+/* Login button styles */
+#loginSection .btn {
+  transition: all 0.3s ease;
+}
+
+#loginSection .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+
+
+/* ================== */
+/* Fixes for UI Glitches */
+/* ================== */
+
+/* Remove any pseudo-elements that might be causing arrows */
+.navbar-brand::after,
+.navbar-brand::before {
+  content: none !important;
+}
+
+/* Fix for any overflow icons */
+.navbar-collapse {
+  overflow: visible;
+}
+
+/* Ensure no text overflow */
+.navbar-nav {
+  white-space: nowrap;
+}
+
+/* Modal input fixes */
+.modal-content {
+  position: relative;
+  z-index: 1060;
+}
+
+.modal-backdrop {
+  z-index: 1050 !important;
+}
+
+
+
+
+/* Public navbar styling */
+.navbar-public {
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-public .navbar-brand {
+  color: #2c3e50 !important;
+}
+
+.navbar-public .nav-link {
+  color: #2c3e50 !important;
+}
+
+
+
+
+
+/* 
+For the login button in navbar
+.navbar .btn-outline-light {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+} */
+
+/* For the login button in auth modal (if needed) */
+/* #authModal .btn-outline-secondary {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+} */
+
+/* More specific selector */
+.navbar #loginSection .btn-outline-light {
+  outline: 2px solid currentColor !important;
+  outline-offset: 2px !important;
+}

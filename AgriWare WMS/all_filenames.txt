@@ -1,0 +1,169 @@
+.:
+  all_filenames.txt
+  css
+  extract_file.py
+  favicon.ico
+  html
+  index.html
+  js
+  manifest.json
+  txt
+
+.vscode:
+  settings.json
+
+admin:
+  css
+  dashboard.html
+  html
+  inventory.html
+  js
+  reports.html
+  staff.html
+  suppliers.html
+
+assets:
+  box.png
+
+final-farm-module:
+  css
+  index.html
+  js
+  script.js
+  style.css
+
+orders:
+  css
+  html
+  js
+  new.html
+  status.html
+
+shared:
+  401.html
+  403.html
+  404.html
+  css
+  html
+  js
+  login.html
+  logo.svg
+  profile.html
+
+shared\partials:
+  authmodal.html
+  css
+  footer.html
+  head.html
+  html
+  js
+  navbar.html
+
+shared\partials\profiles:
+  adminp.html
+  html
+  js
+  staffp.html
+  userp.html
+  workerp.html
+
+shared\scripts:
+  config.js
+  html
+  js
+  profilerouter.js
+
+shared\scripts\auth:
+  html
+  js
+  login.js
+  mockusers.js
+  permissions.js
+  png
+  roledirect.js
+  session.js
+
+shared\scripts\inventory:
+  alerts.js
+  core.js
+  forecasting.js
+  html
+  js
+  replenishment.js
+  supplierlink.js
+
+shared\scripts\orders:
+  core.js
+  create.js
+  html
+  js
+  png
+  status.js
+
+shared\scripts\staff:
+  core.js
+  documents.js
+  html
+  js
+  metric.js
+  permissions.js
+  profile.js
+  scheduling.js
+
+shared\scripts\suppliers:
+  blacklist.js
+  core.js
+  html
+  js
+  performance.js
+
+shared\scripts\ui:
+  footer.js
+  html
+  js
+  navbar.js
+  notification.js
+  rolebadge.js
+  search.js
+
+shared\styles:
+
+shared\styles\admin:
+  admin.css
+  css
+  html
+
+shared\styles\core:
+  cards.css
+  footer.css
+  html
+  nav.css
+
+shared\styles\inventory:
+  inventory.css
+
+shared\styles\reports:
+  css
+  reports.css
+
+shared\styles\staff:
+  css
+  staff.css
+
+shared\styles\supplier:
+  supplier.css
+
+shared\styles\user:
+  user.css
+
+shared\styles\worker:
+  worker.css
+
+worker:
+  css
+  html
+  js
+  scanner.html
+  shiftlog.html
+  tasks.html
+

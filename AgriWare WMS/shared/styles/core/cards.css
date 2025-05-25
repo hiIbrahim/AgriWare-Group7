@@ -1,0 +1,135 @@
+  /* === Supplier Additions === */
+.action-bar {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  
+  .status-active {
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  .status-inactive {
+    color: #dc3545;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* === Staff Additions === */
+.role-admin { color: #2c7873; font-weight: bold; }
+.role-supervisor { color: #6fb98f; }
+.role-worker { color: #f8b400; }
+
+.status-active { color: #28a745; }
+.status-inactive { color: #dc3545; }
+
+
+
+
+
+
+
+
+
+
+
+  /* === cuz of status.html === */
+.order-pipeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.pipeline-stage {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Login Form Styles */
+#authModal {
+  z-index: 1060 !important;
+}
+
+#authModal .modal-content {
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+#authModal input {
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+}
+
+#authModal button[type="submit"] {
+  transition: all 0.3s ease;
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-10px); }
+  80% { transform: translateX(10px); }
+}
+
+.spinner-border {
+  vertical-align: middle;
+}
+
+
+:root {
+  --public-primary: #2c3e50;
+  --public-secondary: #6c757d;
+  --public-danger: #dc3545;
+  --public-warning: #fd7e14;
+}
+
+/* Minimal styles for public/error pages */
+body[data-role="none"] {
+  background-color: #f8f9fa;
+}
+.navbar-public {
+  background-color: white !important;
+  border-bottom: 1px solid #dee2e6;
+}

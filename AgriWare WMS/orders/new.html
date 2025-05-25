@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Order - AgriWare WMS</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Shared CSS -->
+    <link href="../shared/styles/core/nav.css" rel="stylesheet" />
+    <link href="../shared/styles/core/cards.css" rel="stylesheet" />
+    <link href="../shared/styles/core/footer.css" rel="stylesheet" />
+    <link href="../shared/styles/user/user.css" rel="stylesheet" />
+
+    <style>
+      :root {
+        --primary: #3a86ff;
+        --primary-dark: #2667cc;
+        --secondary: #6fb98f;
+        --accent: #ffd166;
+        --success: #06d6a0;
+        --danger: #ef476f;
+        --warning: #ffd166;
+        --text-primary: #f8f9fa;
+        --text-secondary: #adb5bd;
+        --card-bg: #1a1a1a;
+        --card-border: #2a2a2a;
+        --bg-dark: #0f0f0f;
+        --bg-darker: #080808;
+        --light-bg: #181a20;
+        --card-shadow: 0 5px 24px rgba(58,134,255,0.10);
+      }
+      body {
+        background: var(--light-bg);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-primary);
+      }
+      .page-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: #fff;
+        padding: 1.5rem;
+        border-radius: 14px;
+        margin-bottom: 2rem;
+        box-shadow: var(--card-shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .page-title {
+        color: #fff;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 15px;
+        display: flex;
+        align-items: center;
+      }
+      .page-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: var(--accent);
+      }
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1.25rem;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        color: var(--primary);
+        font-weight: 600;
+        transition: all 0.25s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+      .back-btn:hover {
+        background: #23272b;
+        border-color: var(--primary);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .back-btn i {
+        margin-right: 0.5rem;
+        transition: transform 0.25s;
+      }
+      .back-btn:hover i {
+        transform: translateX(-3px);
+      }
+      .order-creation-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+      }
+      @media (max-width: 991px) {
+        .order-creation-container {
+          grid-template-columns: 1fr;
+        }
+        .order-summary-column {
+          order: -1;
+          margin-bottom: 2rem;
+        }
+      }
+      .product-selection .card {
+        background: var(--card-bg);
+        border-radius: 14px;
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--card-border);
+        color: var(--text-primary);
+      }
+      .card-header.bg-light {
+        background: var(--bg-dark) !important;
+        color: var(--primary) !important;
+        border-bottom: 1px solid var(--card-border);
+      }
+      .search-container {
+        display: flex;
+        align-items: center;
+        background: var(--bg-darker);
+        border-radius: 50px;
+        padding: 0.25rem 1rem;
+        border: 1px solid var(--card-border);
+      }
+      .search-icon {
+        color: var(--primary);
+        margin-right: 0.5rem;
+      }
+      .search-container input {
+        background: transparent;
+        border: none;
+        color: var(--text-primary);
+        outline: none;
+        width: 160px;
+      }
+      .search-container input::placeholder {
+        color: var(--text-secondary);
+      }
+      .clear-btn {
+        background: none;
+        border: none;
+        color: var(--danger);
+        margin-left: 0.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.5rem;
+      }
+      .product-card {
+        background: var(--bg-dark);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        transition: all 0.25s ease;
+        border-left: 4px solid transparent;
+        position: relative;
+        color: var(--text-primary);
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        border-left-color: var(--primary);
+      }
+      .product-card.selected {
+        border-left-color: var(--primary);
+        background-color: rgba(58,134,255,0.07);
+      }
+      .product-image {
+        height: 140px;
+        background-color: var(--bg-darker);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+      .product-image img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+      }
+      .product-body {
+        padding: 1.25rem;
+      }
+      .product-name {
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        font-size: 1.05rem;
+      }
+      .product-sku {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
+      }
+      .product-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .product-price {
+        font-weight: 700;
+        color: var(--accent);
+        font-size: 1.1rem;
+      }
+      .stock-badge {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        font-size: 0.8rem;
+        padding: 0.3rem 0.75rem;
+        border-radius: 50px;
+        font-weight: 500;
+      }
+      .badge-success {
+        background-color: #e8f5e9;
+        color: var(--success);
+      }
+      .badge-warning {
+        background-color: #fff8e1;
+        color: var(--warning);
+      }
+      .badge-danger {
+        background-color: #ffebee;
+        color: var(--danger);
+      }
+      .order-summary-column {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .order-summary-section,
+      .supplier-details {
+        background: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: var(--card-shadow);
+        overflow: hidden;
+        border: 1px solid var(--card-border);
+        color: var(--text-primary);
+      }
+      .summary-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        padding: 1.25rem 1.5rem;
+      }
+      .summary-header h5 {
+        font-weight: 600;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        font-size: 1.1rem;
+      }
+      .item-count-badge {
+        background: white;
+        color: var(--primary);
+        padding: 0.35rem 0.9rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9em;
+        margin-left: auto;
+      }
+      .summary-body {
+        padding: 1.5rem;
+      }
+      .summary-section {
+        margin-bottom: 1.5rem;
+      }
+      .section-title {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+      }
+      .section-title i {
+        margin-right: 0.75rem;
+        font-size: 1.1em;
+        color: var(--primary);
+      }
+      .form-control,
+      .form-select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        font-size: 0.95rem;
+        background: var(--bg-darker);
+        color: var(--text-primary);
+        transition: all 0.25s;
+      }
+      .form-control:focus,
+      .form-select:focus {
+        border-color: var(--secondary);
+        box-shadow: 0 0 0 3px rgba(111, 185, 143, 0.2);
+        outline: none;
+        background: var(--bg-dark);
+        color: var(--text-primary);
+      }
+      textarea.form-control {
+        min-height: 100px;
+        resize: vertical;
+      }
+      .summary-totals {
+        background: var(--bg-darker);
+        padding: 1.25rem;
+        border-radius: 10px;
+        margin: 1.75rem 0;
+      }
+      .summary-totals table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 0.5rem;
+      }
+      .summary-totals th {
+        text-align: left;
+        font-weight: 500;
+        color: var(--text-secondary);
+        padding: 0.25rem 0;
+        font-size: 0.95rem;
+      }
+      .summary-totals td {
+        text-align: right;
+        font-weight: 500;
+        padding: 0.25rem 0;
+        font-size: 0.95rem;
+      }
+      .summary-totals .total-row th,
+      .summary-totals .total-row td {
+        font-weight: 700;
+        font-size: 1.1rem;
+        padding-top: 0.75rem;
+        color: var(--primary);
+      }
+      .submit-order-btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        transition: all 0.25s;
+        box-shadow: 0 4px 12px rgba(44, 120, 115, 0.2);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .submit-order-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(44, 120, 115, 0.3);
+      }
+      .submit-order-btn:disabled {
+        background: #e0e0e0;
+        transform: none;
+        box-shadow: none;
+        cursor: not-allowed;
+        color: #888;
+      }
+      .submit-order-btn i {
+        margin-right: 0.75rem;
+      }
+      .supplier-header {
+        background: var(--bg-dark);
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--card-border);
+      }
+      .supplier-header h5 {
+        font-weight: 600;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        font-size: 1.1rem;
+        color: var(--primary);
+      }
+      .supplier-header i {
+        margin-right: 0.75rem;
+        color: var(--primary);
+      }
+      .supplier-body {
+        padding: 1.5rem;
+      }
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+        font-size: 0.95rem;
+      }
+      .form-group.required label::after {
+        content: " *";
+        color: var(--danger);
+      }
+      .empty-cart {
+        text-align: center;
+        padding: 2.5rem 1.5rem;
+      }
+      .empty-cart-icon {
+        font-size: 3.5rem;
+        color: rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+      }
+      .empty-cart h5 {
+        color: #666;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .empty-cart p {
+        color: #999;
+        font-size: 0.95rem;
+        margin: 0;
+      }
+      .add-to-cart {
+        background: var(--primary);
+        color: white;
+        transition: all 0.3s;
+        border: none;
+        border-radius: 50px;
+        padding: 0.5rem 1.25rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+      }
+      .add-to-cart:hover {
+        background: var(--primary-dark);
+      }
+      /* Make placeholder text bright yellow */
+      #contactPerson::placeholder,
+      #shippingAddress::placeholder {
+        color: var(--text-secondary);
+        opacity: 0.5;
+        font-weight: 600;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px);}
+        to { opacity: 1; transform: translateY(0);}
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Dynamic Navbar -->
+    <div id="navbarContainer"></div>
+    <main class="container py-4">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="page-title">
+          <i class="fas fa-cart-plus"></i> Create New Order
+        </h1>
+        <a href="status.html" class="back-btn">
+          <i class="fas fa-arrow-left"></i> Back to Orders
+        </a>
+      </div>
+      <div class="order-creation-container">
+        <!-- Product Selection -->
+        <div class="product-selection">
+          <div class="card mb-4">
+            <div class="card-header bg-light d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <h5 class="mb-0">
+                <i class="fas fa-boxes me-2"></i> Available Products
+              </h5>
+              <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="productSearch" placeholder="Search products..." />
+                <button class="clear-btn" type="button" id="clearSearch">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="product-grid" id="productGrid">
+                <!-- Product cards will be rendered by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Order Summary Column -->
+        <div class="order-summary-column">
+          <!-- Supplier Details Section -->
+          <div class="supplier-details mb-4">
+            <div class="supplier-header">
+              <h5><i class="fas fa-truck"></i> Supplier Information</h5>
+            </div>
+            <div class="supplier-body">
+              <form id="supplierForm">
+                <div class="form-group required">
+                  <label for="supplierSelect">Supplier</label>
+                  <select class="form-control" id="supplierSelect" required>
+                    <option value="">-- Select a supplier --</option>
+                    <!-- Options rendered by JS -->
+                  </select>
+                </div>
+                <div class="form-group required">
+                  <label for="contactPerson">Contact Person</label>
+                  <input type="text" class="form-control" id="contactPerson" required placeholder="Full name of contact" />
+                </div>
+                <div class="form-group required">
+                  <label for="shippingAddress">Shipping Address</label>
+                  <textarea class="form-control" id="shippingAddress" rows="3" required placeholder="Full shipping address including postal code"></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="order-summary-section sticky-top">
+            <div class="summary-header">
+              <h5>
+                <i class="fas fa-receipt"></i> Order Summary
+                <span class="item-count-badge" id="itemCount">0 items</span>
+              </h5>
+            </div>
+            <div class="summary-body">
+              <div id="emptyCart" class="empty-cart">
+                <i class="fas fa-shopping-cart empty-cart-icon"></i>
+                <h5>Your cart is empty</h5>
+                <p>Select products to begin your order</p>
+              </div>
+              <ul id="selectedItems" class="list-group mb-3"></ul>
+              <div id="orderContents" class="d-none">
+                <div class="summary-section">
+                  <div class="section-title">
+                    <i class="fas fa-truck"></i> Shipping Method
+                  </div>
+                  <select class="form-select" id="shippingMethod">
+                    <option value="standard">Standard (3-5 business days)</option>
+                    <option value="express">Express (1-2 business days)</option>
+                    <option value="priority">Priority (Next business day)</option>
+                  </select>
+                </div>
+                <div class="summary-section">
+                  <div class="section-title">
+                    <i class="fas fa-edit"></i> Order Notes
+                  </div>
+                  <textarea class="form-control" id="orderNotes" placeholder="Enter any special instructions, delivery preferences, or other notes..."></textarea>
+                </div>
+                <div class="summary-totals">
+                  <table>
+                    <tr>
+                      <th>Subtotal</th>
+                      <td id="subtotal">$0.00</td>
+                    </tr>
+                    <tr>
+                      <th>Shipping</th>
+                      <td id="shipping">$0.00</td>
+                    </tr>
+                    <tr>
+                      <th>Tax</th>
+                      <td id="tax">$0.00</td>
+                    </tr>
+                    <tr class="total-row">
+                      <th>Total</th>
+                      <td id="total"><strong>$0.00</strong></td>
+                    </tr>
+                  </table>
+                </div>
+                <button id="submitOrder" class="submit-order-btn" disabled>
+                  <i class="fas fa-paper-plane"></i> Place Order
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Dynamic Footer-->
+    <div id="footerContainer"></div>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Scripts -->
+    <script type="module" src="../shared/scripts/config.js"></script>
+    <script type="module" src="../shared/scripts/auth/roledirect.js"></script>
+    <script type="module" src="../shared/scripts/orders/create.js"></script>
+    <script type="module" src="../shared/scripts/ui/navbar.js"></script>
+    <script type="module" src="../shared/scripts/ui/rolebadge.js"></script>
+    <script type="module" src="../shared/scripts/ui/notification.js"></script>
+    <script type="module" src="../shared/scripts/ui/search.js"></script>
+    <script type="module">
+      // Load dynamic footer
+      async function loadFooter() {
+        const res = await fetch("../shared/partials/footer.html");
+        document.getElementById("footerContainer").innerHTML = await res.text();
+      }
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loadFooter();
+        // ...other onload logic...
+      });
+    </script>
+  </body>
+</html>

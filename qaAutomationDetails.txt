@@ -1,0 +1,32 @@
+Software Quality Assurance (SQA) Plan
+
+1. SQA Plan We Followed
+- Test Strategy: Hybrid (manual + automation), focusing on critical user flows first, then edge cases.
+- Five Sprints: Each sprint included planning, development, QA, bug fixing, and review.
+- Metrics: Tracked defect density, test coverage, and mean time to recovery.
+- CI/CD: Automated builds, tests, and deployments for fast feedback.
+
+2. QA with Automation & Its Execution Importance
+Why: Automation enables faster, repeatable, and reliable testing, especially for regression and core flows.
+How: Automated test suites run on every commit and pull request. Manual exploratory and edge-case testing is done before release.
+Tools: Selenium, Cypress, Postman, Jest.
+
+3. 5 Sprints
+- Sprint 1: Core authentication, user roles, and dashboard tested.
+- Sprint 2: Inventory, orders, and supplier modules tested and automated.
+- Sprint 3: Reports, metrics, and UI/UX regressions validated.
+- Sprint 4: Performance testing and optimization.
+- Sprint 5: Final bug fixes and preparation for release.
+Each sprint ended with a QA review and bug triage.
+
+4. CI/CD Pipelines & Smoke Testing
+- Pipeline: Lint → Unit Tests → Build → Deploy to Staging → Smoke Tests → Deploy to Production.
+- Smoke Tests: Short suite (5-10 minutes) for login, database, and key APIs, triggered automatically after staging deployment.
+
+5. Statistical Analysis (Bonus)
+- Defect Prediction: Used Python (pandas, scikit-learn) to analyze bug history and code churn.
+- Example: Logistic regression to predict high-risk files based on code churn and test coverage.
+
+---
+
+This file summarizes our SQA plan, automation, CI/CD, sprint process, and analysis approach.

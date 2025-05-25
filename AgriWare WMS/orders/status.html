@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Status - AgriWare WMS</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Shared CSS -->
+    <link href="../shared/styles/core/nav.css" rel="stylesheet" />
+    <link href="../shared/styles/core/cards.css" rel="stylesheet" />
+    <link href="../shared/styles/core/footer.css" rel="stylesheet" />
+
+    <style>
+      :root {
+        --primary: #3a86ff;
+        --primary-dark: #2667cc;
+        --accent: #ffd166;
+        --success: #06d6a0;
+        --danger: #ef476f;
+        --warning: #ffd166;
+        --text-primary: #f8f9fa;
+        --text-secondary: #adb5bd;
+        --card-bg: #1a1a1a;
+        --card-border: #2a2a2a;
+        --bg-dark: #0f0f0f;
+        --bg-darker: #080808;
+        --light-bg: #181a20;
+        --card-shadow: 0 5px 24px rgba(58,134,255,0.10);
+      }
+
+      body {
+        background: var(--light-bg);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-primary);
+      }
+
+      /* Page Header */
+      .page-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: #fff;
+        padding: 1.5rem;
+        border-radius: 14px;
+        margin-bottom: 2rem;
+        box-shadow: var(--card-shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .page-title {
+        color: #fff;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 15px;
+        display: flex;
+        align-items: center;
+      }
+      .page-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: var(--accent);
+      }
+      .new-order-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1.25rem;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        color: var(--primary);
+        font-weight: 600;
+        transition: all 0.25s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+      .new-order-btn:hover {
+        background: #23272b;
+        border-color: var(--primary);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .new-order-btn i {
+        margin-right: 0.5rem;
+        transition: transform 0.25s;
+      }
+      .new-order-btn:hover i {
+        transform: translateX(-3px);
+      }
+
+      /* Order Pipeline */
+      .order-pipeline {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+      }
+      .pipeline-stage {
+        background: var(--card-bg);
+        border-radius: 14px;
+        padding: 1.5rem;
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--card-border);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        color: var(--text-primary);
+      }
+      .pipeline-stage h3 {
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        font-size: 1.15rem;
+        font-weight: 600;
+      }
+      .order-list {
+        flex-grow: 1;
+      }
+
+      /* Order Cards */
+      .order-card {
+        background: var(--bg-dark);
+        border-radius: 10px;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+        border-left: 5px solid;
+        transition: all 0.3s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        color: var(--text-primary);
+      }
+      .order-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(58,134,255,0.13);
+        border-left-color: var(--accent);
+      }
+      .status-pending {
+        border-left-color: var(--warning);
+      }
+      .status-processing {
+        border-left-color: var(--primary);
+      }
+      .status-shipped {
+        border-left-color: var(--success);
+      }
+      .order-id {
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 1.05rem;
+      }
+      .order-meta {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+      }
+      .order-total {
+        font-weight: 700;
+        color: var(--accent);
+        font-size: 1.1rem;
+      }
+      .order-status-badge {
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-radius: 50px;
+        padding: 0.25em 1em;
+        margin-left: 0.5em;
+      }
+      .order-status-badge.pending {
+        background: #fff8e1;
+        color: var(--warning);
+      }
+      .order-status-badge.processing {
+        background: #e3f2fd;
+        color: var(--primary);
+      }
+      .order-status-badge.shipped {
+        background: #e8f5e9;
+        color: var(--success);
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1050;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .modal-content {
+        background-color: var(--card-bg);
+        margin: 5% auto;
+        padding: 2rem;
+        border-radius: 14px;
+        width: 90%;
+        max-width: 700px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+        color: var(--text-primary);
+        border: 1px solid var(--card-border);
+      }
+      .close {
+        float: right;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #bbb;
+      }
+      .close:hover {
+        color: var(--danger);
+      }
+      .modal-body h4 {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .order-summary,
+      .order-timeline {
+        margin-bottom: 2rem;
+      }
+      .timeline {
+        border-left: 3px solid var(--primary);
+        position: relative;
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+      }
+      .timeline-item {
+        position: relative;
+        padding-bottom: 1.5rem;
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -1.5rem;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        background: var(--primary);
+      }
+      .order-actions .btn {
+        border-radius: 50px;
+        font-weight: 600;
+        margin-left: 0.5rem;
+      }
+      .order-actions .btn-primary {
+        background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+        border: none;
+        color: #fff;
+      }
+      .order-actions .btn-primary:hover {
+        background: linear-gradient(145deg, var(--accent), var(--primary));
+        color: #fff;
+      }
+      .order-actions .btn-secondary {
+        border: 1px solid var(--primary);
+        color: var(--primary);
+        background: transparent;
+      }
+      .order-actions .btn-secondary:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .page-header {
+          padding: 1rem;
+        }
+        .order-pipeline {
+          grid-template-columns: 1fr;
+        }
+        .modal-content {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Dynamic Navbar -->
+    <div id="navbarContainer"></div>
+    <!-- Main Content -->
+    <main class="container flex-grow-1 py-4">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="page-title">
+          <i class="fas fa-clipboard-list me-2"></i> Order Status
+        </h1>
+        <a href="new.html" class="new-order-btn">
+          <i class="fas fa-plus-circle"></i> New Order
+        </a>
+      </div>
+      <!-- Order Pipeline -->
+      <div class="order-pipeline">
+        <div class="pipeline-stage" data-status="pending">
+          <h3><i class="fas fa-hourglass-half me-2"></i> Pending</h3>
+          <div id="pendingOrders" class="order-list"></div>
+        </div>
+        <div class="pipeline-stage" data-status="processing">
+          <h3><i class="fas fa-cog me-2"></i> Processing</h3>
+          <div id="processingOrders" class="order-list"></div>
+        </div>
+        <div class="pipeline-stage" data-status="shipped">
+          <h3><i class="fas fa-truck me-2"></i> Shipped</h3>
+          <div id="shippedOrders" class="order-list"></div>
+        </div>
+      </div>
+    </main>
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">Order Details</h2>
+        <div class="modal-body">
+          <div class="order-summary mb-4">
+            <h4><i class="fas fa-boxes me-2"></i> Items</h4>
+            <ul id="modalItems" class="list-group"></ul>
+          </div>
+          <div class="order-timeline mb-4">
+            <h4><i class="fas fa-history me-2"></i> Timeline</h4>
+            <div class="timeline" id="orderTimeline"></div>
+          </div>
+          <div class="order-actions d-flex justify-content-end gap-2">
+            <button id="printOrderBtn" class="btn btn-secondary">
+              <i class="fas fa-print me-1"></i> Print
+            </button>
+            <button id="updateStatusBtn" class="btn btn-primary">
+              <i class="fas fa-sync me-1"></i> Update Status
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Dynamic Footer-->
+    <div id="footerContainer"></div>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Scripts -->
+    <script type="module" src="../shared/scripts/config.js"></script>
+    <script type="module" src="../shared/scripts/auth/session.js"></script>
+    <script type="module" src="../shared/scripts/auth/roledirect.js"></script>
+    <script type="module" src="../shared/scripts/ui/navbar.js"></script>
+    <script type="module" src="../shared/scripts/ui/rolebadge.js"></script>
+    <script type="module" src="../shared/scripts/ui/notification.js"></script>
+    <script type="module" src="../shared/scripts/staff/scheduling.js"></script>
+    <script type="module" src="../shared/scripts/orders/status.js"></script>
+    <script type="module">
+      // Load dynamic footer
+      async function loadFooter() {
+        const res = await fetch("../shared/partials/footer.html");
+        document.getElementById("footerContainer").innerHTML = await res.text();
+      }
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loadFooter();
+        // ...other onload logic...
+      });
+    </script>
+  </body>
+</html>

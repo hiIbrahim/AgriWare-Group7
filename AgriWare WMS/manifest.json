@@ -1,0 +1,8 @@
+{
+    "name": "AgriWare WMS",
+    "short_name": "AgriWare",
+    "theme_color": "#2b5797",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/"
+  }
