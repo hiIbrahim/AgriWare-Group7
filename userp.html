@@ -1,0 +1,170 @@
+<!-- shared/partials/profiles/userp.html -->
+<!-- User Profile Partial - Consistent, Professional, Dynamic -->
+<div class="user-profile-content">
+  <!-- Account Info Card -->
+  <div class="card mb-4 border-primary shadow" style="border-radius:14px;">
+    <div class="card-header bg-primary text-white" style="border-radius:14px 14px 0 0;">
+      <h5 class="mb-0 d-flex align-items-center" style="font-weight:600;">
+        <i class="fas fa-user-circle me-2"></i>Account Information
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p class="mb-1 fw-semibold text-primary"><i class="fas fa-id-badge me-1"></i>Account Type:</p>
+          <p class="mb-0">Standard User</p>
+        </div>
+        <div class="col-md-6">
+          <p class="mb-1 fw-semibold text-primary"><i class="fas fa-calendar-alt me-1"></i>Member Since:</p>
+          <p class="mb-0" id="memberSince">Loading...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Form Card -->
+  <div class="card border-0 shadow" style="border-radius:14px;">
+    <div class="card-header bg-dark text-primary" style="border-radius:14px 14px 0 0; font-weight:600;">
+      <i class="fas fa-user-edit me-2"></i>Edit Profile
+    </div>
+    <div class="card-body">
+      <form id="userProfileForm" class="needs-validation" novalidate autocomplete="off">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              required
+              minlength="2"
+              maxlength="50"
+              autocomplete="given-name"
+            />
+            <div class="invalid-feedback">Must be 2-50 characters long</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              required
+              minlength="2"
+              maxlength="50"
+              autocomplete="family-name"
+            />
+            <div class="invalid-feedback">Must be 2-50 characters long</div>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              required
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              autocomplete="email"
+            />
+            <div class="invalid-feedback">Please enter a valid email address</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Phone</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="phone"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              placeholder="Format: 123-456-7890"
+              autocomplete="tel"
+            />
+            <div class="invalid-feedback">Please enter a valid phone number</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Preferred Contact Method</label>
+            <select class="form-select" id="contactMethod">
+              <option value="email">Email</option>
+              <option value="phone">Phone</option>
+              <option value="sms">SMS</option>
+            </select>
+          </div>
+          <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-primary px-4" style="border-radius:50px; font-weight:600;">
+              <i class="fas fa-save me-2"></i> Update Profile
+            </button>
+          </div>
+        </div>
+      </form>
+      <div id="userProfileLoading" class="loading-indicator text-center my-3 d-none">
+        <div class="spinner-border text-primary"></div> Saving...
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import {
+    checkSession,
+    getProfileData,
+    updateProfile
+  } from "../scripts/auth/session.js";
+  import { showNotification } from "../scripts/ui/notification.js";
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const user = await checkSession();
+      if (!user || user.role !== "user") return;
+      const profileData = await getProfileData(user.id);
+
+      document.getElementById("memberSince").textContent =
+        profileData.joinDate ? new Date(profileData.joinDate).toLocaleDateString() : "N/A";
+      document.getElementById("firstName").value = profileData.firstName || "";
+      document.getElementById("lastName").value = profileData.lastName || "";
+      document.getElementById("email").value = profileData.email || "";
+      document.getElementById("phone").value = profileData.phone || "";
+      document.getElementById("contactMethod").value = profileData.contactMethod || "email";
+    } catch (error) {
+      showNotification("Failed to load user profile", "error");
+    }
+  });
+
+  const form = document.getElementById("userProfileForm");
+  const loadingIndicator = document.getElementById("userProfileLoading");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.classList.add("was-validated");
+      return;
+    }
+    try {
+      loadingIndicator.classList.remove("d-none");
+      form.querySelector('button[type="submit"]').disabled = true;
+      const updates = {
+        firstName: form.querySelector("#firstName").value,
+        lastName: form.querySelector("#lastName").value,
+        email: form.querySelector("#email").value,
+        phone: form.querySelector("#phone").value,
+        contactMethod: form.querySelector("#contactMethod").value,
+      };
+      await updateProfile(updates);
+      showNotification("Profile updated successfully", "success");
+      form.classList.remove("was-validated");
+    } catch (error) {
+      showNotification("Failed to update profile: " + error.message, "error");
+    } finally {
+      loadingIndicator.classList.add("d-none");
+      form.querySelector('button[type="submit"]').disabled = false;
+    }
+  });
+</script>
+
+<style>
+/* Add to profile.html <style> or shared CSS */
+body, .profile-bg {
+  background: #1a1a1a !important; 
+}
+.card {
+  background: #1a1a1a !important;
+}
+</style>
