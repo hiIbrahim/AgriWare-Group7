@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barcode Scanner - AgriWare WMS</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Shared CSS -->
+    <link href="../shared/styles/core/nav.css" rel="stylesheet" />
+    <link href="../shared/styles/core/cards.css" rel="stylesheet" />
+    <link href="../shared/styles/core/footer.css" rel="stylesheet" />
+    <style>
+      :root {
+        --primary: #3a86ff;
+        --primary-dark: #2667cc;
+        --accent: #ffd166;
+        --success: #06d6a0;
+        --danger: #ef476f;
+        --warning: #ffd166;
+        --text-primary: #f8f9fa;
+        --text-secondary: #adb5bd;
+        --card-bg: #1a1a1a;
+        --card-border: #2a2a2a;
+        --bg-dark: #0f0f0f;
+        --bg-darker: #080808;
+        --light-bg: #181a20;
+        --card-shadow: 0 5px 24px rgba(58,134,255,0.10);
+      }
+      body {
+        background: var(--light-bg);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-primary);
+      }
+      .page-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: #fff;
+        padding: 1.5rem;
+        border-radius: 14px;
+        margin-bottom: 2rem;
+        box-shadow: var(--card-shadow);
+      }
+      .badge.bg-light.text-dark, .badge.bg-white.text-dark {
+        background: var(--card-bg) !important;
+        color: var(--primary) !important;
+        border: 1px solid var(--primary);
+        font-weight: 600;
+      }
+      .scanner-section {
+        background: var(--card-bg);
+        border-radius: 14px;
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--card-border);
+        padding: 2rem 1.5rem 1.5rem 1.5rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .scanner-container {
+        position: relative;
+        width: 100%;
+        border: 3px solid var(--primary);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--bg-dark);
+        margin-bottom: 1.5rem;
+      }
+      #scanner-video {
+        width: 100%;
+        display: block;
+        background: #000;
+      }
+      .scan-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(180deg,rgba(58,134,255,0.07) 0%,rgba(58,134,255,0.13) 100%);
+        z-index: 1;
+        pointer-events: none;
+      }
+      .scanner-controls {
+        margin-top: 1rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .scanner-controls .btn {
+        border-radius: 10px;
+        font-weight: 600;
+        min-width: 140px;
+        box-shadow: 0 2px 8px rgba(58,134,255,0.10);
+        transition: all 0.2s;
+      }
+      .scanner-controls .btn-primary {
+        background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+        border: none;
+        color: #fff;
+      }
+      .scanner-controls .btn-primary:hover {
+        background: linear-gradient(145deg, var(--accent), var(--primary));
+        color: #fff;
+      }
+      .scanner-controls .btn-danger {
+        background: var(--danger);
+        border: none;
+        color: #fff;
+      }
+      .scanner-controls .btn-danger:disabled {
+        background: #333;
+        color: #aaa;
+        border: none;
+      }
+      .scanner-controls .btn-secondary {
+        background: var(--bg-dark);
+        color: var(--primary);
+        border: 1.5px solid var(--primary);
+      }
+      .scanner-controls .btn-secondary:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+      #scan-result {
+        margin-top: 1.5rem;
+        padding: 1.25rem 1rem;
+        background: var(--bg-dark);
+        border-radius: 10px;
+        min-height: 100px;
+        color: var(--text-primary);
+        border: 1px solid var(--card-border);
+        box-shadow: 0 2px 8px rgba(58,134,255,0.07);
+      }
+      #scan-result .alert-info {
+        background: #3a86ff22;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+        border-radius: 8px;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+      #scan-result .text-muted {
+        color: var(--text-secondary) !important;
+      }
+      @media (max-width: 768px) {
+        .page-header {
+          padding: 1rem;
+        }
+        .scanner-section {
+          padding: 1rem;
+        }
+        .scanner-controls {
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Dynamic Navbar -->
+    <div id="navbarContainer"></div>
+    <main class="container flex-grow-1 py-4">
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+          <div>
+            <h1 class="mb-2">
+              <i class="fas fa-barcode me-2"></i>Barcode Scanner
+            </h1>
+            <div class="d-flex align-items-center flex-wrap gap-3">
+              <span class="badge bg-white text-dark">
+                <i class="fas fa-user-tie me-1"></i> Supervisor: <span id="currentSupervisor">-</span>
+              </span>
+              <span class="badge bg-white text-dark">
+                <i class="fas fa-clock me-1"></i> Shift: <span id="currentShiftName">-</span>
+              </span>
+            </div>
+          </div>
+          <span class="badge bg-light text-dark fs-6 mt-3 mt-md-0">
+            <i class="fas fa-user me-1"></i> Worker
+          </span>
+        </div>
+      </div>
+      <!-- Scanner Section -->
+      <section class="scanner-section">
+        <div class="scanner-container mb-3">
+          <video id="scanner-video" playsinline></video>
+          <div class="scan-overlay"></div>
+        </div>
+        <div class="scanner-controls">
+          <button id="startScanner" class="btn btn-primary">
+            <i class="fas fa-play me-1"></i> Start Scanner
+          </button>
+          <button id="stopScanner" class="btn btn-danger" disabled>
+            <i class="fas fa-stop me-1"></i> Stop
+          </button>
+          <button id="manualEntry" class="btn btn-secondary">
+            <i class="fas fa-keyboard me-1"></i> Manual Entry
+          </button>
+        </div>
+        <div id="scan-result" class="text-center mt-3">
+          <p class="text-muted">No scans yet</p>
+        </div>
+      </section>
+    </main>
+    <!-- Dynamic Footer -->
+    <div id="footerContainer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+      import { checkSession } from "../shared/scripts/auth/session.js";
+      import { getCurrentShift } from "../shared/scripts/staff/scheduling.js";
+      import { showNotification } from "../shared/scripts/ui/notification.js";
+
+      async function setupWorkerNavbar() {
+        const user = await checkSession();
+        if (!user || user.role !== "worker") {
+          window.location.href = "/shared/403.html";
+          return;
+        }
+        document.getElementById("dynamicNavItems").innerHTML = `
+          <li class="nav-item">
+            <a class="nav-link" href="/worker/tasks.html"><i class="fas fa-tasks me-1"></i> Tasks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/worker/scanner.html"><i class="fas fa-barcode me-1"></i> Scanner</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/worker/shiftlog.html"><i class="fas fa-clock me-1"></i> Shift Log</a>
+          </li>
+        `;
+        const roleBadge = document.getElementById("roleBadge");
+        if (roleBadge) {
+          roleBadge.textContent = "Worker";
+          roleBadge.className = "badge rounded-pill me-3 bg-success";
+        }
+        const authButton = document.getElementById("authButton");
+        if (authButton) {
+          authButton.innerHTML = '<i class="fas fa-sign-out-alt me-1"></i> Logout';
+          authButton.className = 'btn btn-sm btn-danger';
+          authButton.onclick = (e) => {
+            e.preventDefault();
+            ["wms_user", "csrf_token", "last_active"].forEach((key) => {
+              localStorage.removeItem(key);
+            });
+            window.location.href = "/shared/login.html?logout=true";
+          };
+        }
+        const profileLink = document.getElementById("profileLink");
+        if (profileLink && user) {
+          profileLink.classList.remove("d-none");
+        }
+      }
+
+      async function loadComponent(containerId, path) {
+        const response = await fetch(path);
+        document.getElementById(containerId).innerHTML = await response.text();
+      }
+
+      async function setupShiftHeader() {
+        const shift = await getCurrentShift();
+        document.getElementById("currentSupervisor").textContent = shift?.supervisor || "-";
+        document.getElementById("currentShiftName").textContent = shift?.name || "-";
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loadComponent("navbarContainer", "../shared/partials/navbar.html");
+        await loadComponent("footerContainer", "../shared/partials/footer.html");
+        await setupWorkerNavbar();
+        await setupShiftHeader();
+        setupScanner();
+      });
+
+      // SCANNER LOGIC (dynamic, using localStorage and/or Web API)
+      function setupScanner() {
+        const scanResult = document.getElementById("scan-result");
+        let scans = JSON.parse(localStorage.getItem("worker_scans") || "[]");
+
+        function renderScans() {
+          if (!scans.length) {
+            scanResult.innerHTML = `<p class="text-muted">No scans yet</p>`;
+          } else {
+            scanResult.innerHTML = scans.map(s => `
+              <div class="alert alert-info mb-2">
+                <strong>Barcode:</strong> ${s.code}<br>
+                <small>${new Date(s.time).toLocaleString()}</small>
+              </div>
+            `).join("");
+          }
+        }
+
+        // Simulate a scan (replace with real scanner logic or Web API call)
+        document.getElementById("startScanner").onclick = () => {
+          const code = prompt("Simulate scan: Enter barcode");
+          if (code) {
+            const scan = { code, time: Date.now() };
+            scans.push(scan);
+            localStorage.setItem("worker_scans", JSON.stringify(scans));
+            renderScans();
+            showNotification("Barcode scanned successfully.", "success");
+          }
+        };
+
+        // Manual entry
+        document.getElementById("manualEntry").onclick = () => {
+          const code = prompt("Manual entry: Enter barcode");
+          if (code) {
+            const scan = { code, time: Date.now() };
+            scans.push(scan);
+            localStorage.setItem("worker_scans", JSON.stringify(scans));
+            renderScans();
+            showNotification("Barcode entered manually.", "info");
+          }
+        };
+
+        renderScans();
+      }
+    </script>
+  </body>
+</html>

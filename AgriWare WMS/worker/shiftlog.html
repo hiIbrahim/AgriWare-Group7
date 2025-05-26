@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shift Log - AgriWare WMS</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #3a86ff;
+        --primary-dark: #2667cc;
+        --accent: #ffd166;
+        --success: #06d6a0;
+        --danger: #ef476f;
+        --warning: #ffd166;
+        --text-primary: #f8f9fa;
+        --text-secondary: #adb5bd;
+        --card-bg: #1a1a1a;
+        --card-border: #2a2a2a;
+        --bg-dark: #0f0f0f;
+        --bg-darker: #080808;
+        --light-bg: #181a20;
+        --card-shadow: 0 5px 24px rgba(58,134,255,0.10);
+      }
+      body {
+        background: var(--light-bg);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-primary);
+      }
+      .page-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: #fff;
+        padding: 1.5rem;
+        border-radius: 14px;
+        margin-bottom: 2rem;
+        box-shadow: var(--card-shadow);
+      }
+      .badge.bg-light.text-dark, .badge.bg-white.text-dark {
+        background: var(--card-bg) !important;
+        color: var(--primary) !important;
+        border: 1px solid var(--primary);
+        font-weight: 600;
+      }
+      .shift-timer {
+        font-size: 1.15rem;
+        font-weight: 600;
+        background: var(--card-bg);
+        color: var(--accent);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        border: 1px solid var(--card-border);
+        margin-left: 1rem;
+      }
+      .card, .card-body, .card-header {
+        background: var(--card-bg) !important;
+        color: var(--text-primary) !important;
+        border-radius: 14px !important;
+        border: 1px solid var(--card-border) !important;
+        box-shadow: var(--card-shadow) !important;
+      }
+      .card-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+        color: #fff !important;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-bottom: 1px solid var(--card-border) !important;
+      }
+      .log-card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: var(--card-shadow);
+        transition: all 0.3s ease;
+        overflow: hidden;
+        background: var(--bg-dark);
+        color: var(--text-primary);
+        margin-bottom: 1.2rem;
+      }
+      .log-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(58,134,255,0.18);
+      }
+      .log-card .card-header {
+        background: var(--primary);
+        color: #fff;
+        border-bottom: none;
+        padding: 0.75rem 1.25rem;
+        border-radius: 10px 10px 0 0 !important;
+      }
+      .log-card .card-body {
+        padding: 1.25rem;
+        background: var(--bg-dark);
+        color: var(--text-primary);
+      }
+      .log-type-icon {
+        font-size: 1.2rem;
+        margin-right: 8px;
+        color: var(--accent);
+      }
+      .log-time {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+      }
+      .timeline {
+        position: relative;
+        padding-left: 2.5rem;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--primary);
+        border-radius: 3px;
+      }
+      .timeline-item {
+        position: relative;
+        margin-bottom: 2rem;
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -2.5rem;
+        top: 5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--card-bg);
+        border: 4px solid var(--primary);
+        z-index: 1;
+      }
+      .quick-actions .btn {
+        margin-bottom: 0.75rem;
+        text-align: left;
+        padding: 0.75rem;
+        border-radius: 10px;
+        font-weight: 600;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        transition: all 0.3s;
+      }
+      .quick-actions .btn.btn-outline-primary {
+        background: transparent;
+        color: var(--primary);
+        border: 1.5px solid var(--primary);
+      }
+      .quick-actions .btn.btn-outline-primary:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+      .quick-actions .btn.btn-outline-warning {
+        background: transparent;
+        color: var(--warning);
+        border: 1.5px solid var(--warning);
+      }
+      .quick-actions .btn.btn-outline-warning:hover {
+        background: var(--warning);
+        color: #000;
+      }
+      .quick-actions .btn.btn-outline-info {
+        background: transparent;
+        color: #3ad8ff;
+        border: 1.5px solid #3ad8ff;
+      }
+      .quick-actions .btn.btn-outline-info:hover {
+        background: #3ad8ff;
+        color: #181a20;
+      }
+      .quick-actions .btn-danger {
+        background: var(--danger);
+        color: #fff;
+        border: none;
+      }
+      .quick-actions .btn-danger:hover {
+        background: #d32f4c;
+        color: #fff;
+      }
+      .progress {
+        height: 10px;
+        border-radius: 5px;
+        background: var(--bg-dark);
+      }
+      .progress-bar {
+        border-radius: 5px;
+        background: var(--success);
+      }
+      .form-label {
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .form-select, .form-control, .input-group-text {
+        background: var(--bg-dark);
+        color: var(--text-primary);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+      }
+      .form-select:focus, .form-control:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(255,209,102,0.13);
+        background: var(--bg-darker);
+        color: var(--text-primary);
+      }
+      .modal-content {
+        border-radius: 14px;
+        border: none;
+        box-shadow: var(--card-shadow);
+        background: var(--card-bg);
+        color: var(--text-primary);
+      }
+      .modal-header.bg-primary {
+        background: var(--primary) !important;
+        color: #fff !important;
+        border-radius: 14px 14px 0 0;
+      }
+      .modal-footer {
+        background: var(--bg-dark);
+        border-radius: 0 0 14px 14px;
+      }
+      .input-group-text {
+        background: var(--bg-dark);
+        color: var(--primary);
+        border: 1px solid var(--card-border);
+      }
+      @media (max-width: 768px) {
+        .timeline {
+          padding-left: 2rem;
+        }
+        .timeline::before {
+          left: 10px;
+        }
+        .timeline-item::before {
+          left: -2rem;
+          width: 16px;
+          height: 16px;
+        }
+        .page-header {
+          padding: 1rem;
+        }
+      }
+      .card-header h5,
+      .card-header .mb-0 {
+        color: #fff !important;
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Dynamic Navbar -->
+    <div id="navbarContainer"></div>
+    <main class="container flex-grow-1 py-4">
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h1 class="mb-2">
+              <i class="fas fa-clipboard-list me-2"></i>Shift Log
+            </h1>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-white text-dark me-3">
+                <i class="fas fa-user-tie me-1"></i> Supervisor: <span id="currentSupervisor">-</span>
+              </span>
+              <span class="shift-timer">
+                <i class="fas fa-clock me-1"></i>
+                <span id="shiftTimer">--:--:--</span>
+              </span>
+            </div>
+          </div>
+          <span class="badge bg-light text-dark fs-6">
+            <i class="fas fa-user me-1"></i> Worker
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Main Log Column -->
+        <div class="col-lg-8">
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center border-bottom">
+              <h5 class="mb-0 text-primary">
+                <i class="fas fa-history me-2"></i>Activity Log
+              </h5>
+              <button class="btn btn-primary btn-sm" id="newLogBtn">
+                <i class="fas fa-plus me-1"></i> New Entry
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="timeline" id="shiftLogs">
+                <!-- Dynamic log entries -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sidebar Column -->
+        <div class="col-lg-4">
+          <!-- Quick Actions Card -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom">
+              <h5 class="mb-0 text-primary">
+                <i class="fas fa-bolt me-2"></i>Quick Actions
+              </h5>
+            </div>
+            <div class="card-body quick-actions">
+              <button class="btn btn-outline-primary w-100" id="startBreakBtn">
+                <i class="fas fa-coffee me-2"></i> Start Break
+              </button>
+              <button class="btn btn-outline-primary w-100" id="endBreakBtn" disabled>
+                <i class="fas fa-clock me-2"></i> End Break
+              </button>
+              <button class="btn btn-outline-warning w-100" id="reportIssueBtn">
+                <i class="fas fa-exclamation-triangle me-2"></i> Report Issue
+              </button>
+              <button class="btn btn-outline-info w-100" id="requestAssistanceBtn">
+                <i class="fas fa-hands-helping me-2"></i> Request Help
+              </button>
+              <hr />
+              <button class="btn btn-danger w-100" id="endShiftBtn">
+                <i class="fas fa-sign-out-alt me-2"></i> End Shift
+              </button>
+            </div>
+          </div>
+          <!-- Shift Summary Card -->
+          <div class="card shadow-sm">
+            <div class="card-header bg-white border-bottom">
+              <h5 class="mb-0 text-primary">
+                <i class="fas fa-chart-pie me-2"></i>Shift Summary
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <label class="form-label fw-bold">Tasks Completed</label>
+                <div class="d-flex justify-content-between mb-1">
+                  <span id="tasksCompleted">-</span>
+                  <span id="tasksCompletedPercent">-</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar bg-success" id="tasksCompletedBar" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Break Time</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                  <input type="text" class="form-control" id="breakTime" value="0 minutes" readonly />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Productivity</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                  <input type="text" class="form-control" id="productivity" value="-" readonly />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- New Log Modal -->
+    <div class="modal fade" id="newLogModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">
+              <i class="fas fa-plus-circle me-2"></i>New Log Entry
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="newLogForm">
+              <div class="mb-3">
+                <label for="logType" class="form-label">Entry Type</label>
+                <select class="form-select" id="logType" required>
+                  <option value="">Select type...</option>
+                  <option value="task">Task Update</option>
+                  <option value="note">General Note</option>
+                  <option value="issue">Issue Report</option>
+                  <option value="break">Break</option>
+                  <option value="equipment">Equipment</option>
+                  <option value="safety">Safety Concern</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="logTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="logTitle" required />
+              </div>
+              <div class="mb-3">
+                <label for="logDetails" class="form-label">Details</label>
+                <textarea class="form-control" id="logDetails" rows="3" required></textarea>
+              </div>
+              <div class="text-end">
+                <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-save me-1"></i> Save Entry
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Dynamic Footer -->
+    <div id="footerContainer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+      import { checkSession } from "../shared/scripts/auth/session.js";
+      import { getCurrentShift, getWorkerTasks } from "../shared/scripts/staff/scheduling.js";
+      import { showNotification } from "../shared/scripts/ui/notification.js";
+
+      let breakStart = null;
+      let breakDuration = 0; // in ms
+
+      async function setupWorkerNavbar() {
+        const user = await checkSession();
+        if (!user || user.role !== "worker") {
+          window.location.href = "/shared/403.html";
+          return;
+        }
+        document.getElementById("dynamicNavItems").innerHTML = `
+          <li class="nav-item"><a class="nav-link" href="/worker/tasks.html"><i class="fas fa-tasks me-1"></i> Tasks</a></li>
+          <li class="nav-item"><a class="nav-link" href="/worker/scanner.html"><i class="fas fa-barcode me-1"></i> Scanner</a></li>
+          <li class="nav-item"><a class="nav-link" href="/worker/shiftlog.html"><i class="fas fa-clock me-1"></i> Shift Log</a></li>
+        `;
+        const roleBadge = document.getElementById("roleBadge");
+        if (roleBadge) {
+          roleBadge.textContent = "Worker";
+          roleBadge.className = "badge rounded-pill me-3 bg-success";
+        }
+        const authButton = document.getElementById("authButton");
+        if (authButton) {
+          authButton.innerHTML = '<i class="fas fa-sign-out-alt me-1"></i> Logout';
+          authButton.className = 'btn btn-sm btn-danger';
+          authButton.onclick = (e) => {
+            e.preventDefault();
+            ["wms_user", "csrf_token", "last_active"].forEach((key) => {
+              localStorage.removeItem(key);
+            });
+            window.location.href = "/shared/login.html?logout=true";
+          };
+        }
+        const profileLink = document.getElementById("profileLink");
+        if (profileLink && user) {
+          profileLink.classList.remove("d-none");
+        }
+      }
+
+      async function loadComponent(containerId, path) {
+        const response = await fetch(path);
+        document.getElementById(containerId).innerHTML = await response.text();
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loadComponent("navbarContainer", "../shared/partials/navbar.html");
+        await loadComponent("footerContainer", "../shared/partials/footer.html");
+        await setupWorkerNavbar();
+        await setupShiftHeader();
+        setupShiftLog();
+        setupQuickActions();
+      });
+
+      async function setupShiftHeader() {
+        // Supervisor and timer
+        const shift = await getCurrentShift();
+        document.getElementById("currentSupervisor").textContent = shift?.supervisor || "-";
+        // Timer
+        function updateTimer() {
+          const now = new Date();
+          let end = shift?.endTime ? new Date(shift.endTime) : null;
+          let diff = end ? end - now : 0;
+          if (diff > 0) {
+            const h = String(Math.floor(diff / 3600000)).padStart(2, "0");
+            const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+            const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+            document.getElementById("shiftTimer").textContent = `${h}:${m}:${s}`;
+          } else {
+            document.getElementById("shiftTimer").textContent = "Ended";
+          }
+        }
+        updateTimer();
+        setInterval(updateTimer, 1000);
+      }
+
+      function setupShiftLog() {
+        const logsDiv = document.getElementById("shiftLogs");
+        let logs = JSON.parse(localStorage.getItem("worker_shiftlogs") || "[]");
+        renderLogs();
+
+        function renderLogs() {
+          if (!logs.length) {
+            logsDiv.innerHTML = `<p class="text-muted">No log entries yet</p>`;
+          } else {
+            logsDiv.innerHTML = logs
+              .map(
+                (log) => `
+                <div class="timeline-item">
+                  <div class="log-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <span>
+                        <i class="fas fa-${getLogIcon(log.type)} log-type-icon"></i>
+                        ${log.type ? capitalize(log.type) : "Log"}
+                      </span>
+                      <small class="log-time">${formatTime(log.time)}</small>
+                    </div>
+                    <div class="card-body">
+                      <p>${log.title ? `<strong>${log.title}</strong><br/>` : ""}${log.details}</p>
+                      ${log.extra ? `<div class="mt-2">${log.extra}</div>` : ""}
+                    </div>
+                  </div>
+                </div>
+              `
+              )
+              .join("");
+          }
+        }
+
+        // New log modal
+        document.getElementById("newLogBtn").onclick = () => {
+          const modal = new bootstrap.Modal(document.getElementById("newLogModal"));
+          modal.show();
+        };
+
+        document.getElementById("newLogForm").onsubmit = function (e) {
+          e.preventDefault();
+          const type = document.getElementById("logType").value;
+          const title = document.getElementById("logTitle").value;
+          const details = document.getElementById("logDetails").value;
+          const log = {
+            type,
+            title,
+            details,
+            time: Date.now(),
+          };
+          logs.unshift(log);
+          localStorage.setItem("worker_shiftlogs", JSON.stringify(logs));
+          renderLogs();
+          showNotification("Log entry added.", "success");
+          bootstrap.Modal.getInstance(document.getElementById("newLogModal")).hide();
+          this.reset();
+        };
+
+        // For quick actions to add logs
+        window.addShiftLog = (log) => {
+          logs.unshift(log);
+          localStorage.setItem("worker_shiftlogs", JSON.stringify(logs));
+          renderLogs();
+        };
+
+        // Update summary
+        updateSummary();
+        async function updateSummary() {
+          const tasks = await getWorkerTasks();
+          const completed = tasks.filter(t => t.status === "Completed").length;
+          const total = tasks.length;
+          document.getElementById("tasksCompleted").textContent = total ? `${completed} of ${total} tasks` : "-";
+          document.getElementById("tasksCompletedPercent").textContent = total ? `${Math.round((completed/total)*100)}%` : "-";
+          document.getElementById("tasksCompletedBar").style.width = total ? `${(completed/total)*100}%` : "0%";
+          // Productivity (simple: high if >70% complete)
+          document.getElementById("productivity").value = total && (completed/total) > 0.7 ? "High" : "Normal";
+        }
+        // Break time
+        document.getElementById("breakTime").value = `${Math.round(breakDuration/60000)} minutes`;
+      }
+
+      function setupQuickActions() {
+        const startBreakBtn = document.getElementById("startBreakBtn");
+        const endBreakBtn = document.getElementById("endBreakBtn");
+        startBreakBtn.onclick = () => {
+          if (breakStart) {
+            showNotification("Break already started.", "info");
+            return;
+          }
+          breakStart = Date.now();
+          startBreakBtn.disabled = true;
+          endBreakBtn.disabled = false;
+          addShiftLog({
+            type: "break",
+            title: "Break Started",
+            details: "Started a break.",
+            time: Date.now(),
+          });
+          showNotification("Break started. Enjoy your rest!", "info");
+        };
+        endBreakBtn.onclick = () => {
+          if (!breakStart) {
+            showNotification("No break in progress.", "warning");
+            return;
+          }
+          const duration = Date.now() - breakStart;
+          breakDuration += duration;
+          document.getElementById("breakTime").value = `${Math.round(breakDuration/60000)} minutes`;
+          breakStart = null;
+          startBreakBtn.disabled = false;
+          endBreakBtn.disabled = true;
+          addShiftLog({
+            type: "break",
+            title: "Break Ended",
+            details: `Ended break. Duration: ${Math.round(duration/60000)} minutes.`,
+            time: Date.now(),
+          });
+          showNotification("Break ended. Back to work!", "success");
+        };
+        document.getElementById("reportIssueBtn").onclick = () => {
+          addShiftLog({
+            type: "issue",
+            title: "Issue Reported",
+            details: "An issue was reported via quick action.",
+            time: Date.now(),
+          });
+          showNotification("Issue reported to supervisor.", "warning");
+        };
+        document.getElementById("requestAssistanceBtn").onclick = () => {
+          addShiftLog({
+            type: "note",
+            title: "Assistance Requested",
+            details: "Requested help from supervisor.",
+            time: Date.now(),
+          });
+          showNotification("Assistance requested. Supervisor notified.", "info");
+        };
+        document.getElementById("endShiftBtn").onclick = () => {
+          addShiftLog({
+            type: "note",
+            title: "Shift Ended",
+            details: "Worker ended their shift.",
+            time: Date.now(),
+          });
+          showNotification("Shift ended. Logging out...", "success");
+          setTimeout(() => {
+            ["wms_user", "csrf_token", "last_active"].forEach((key) => {
+              localStorage.removeItem(key);
+            });
+            window.location.href = "/shared/login.html?logout=true";
+          }, 1200);
+        };
+      }
+
+      // Helpers
+      function getLogIcon(type) {
+        switch (type) {
+          case "task": return "tasks";
+          case "note": return "sticky-note";
+          case "issue": return "exclamation-circle";
+          case "break": return "coffee";
+          case "equipment": return "tools";
+          case "safety": return "shield-alt";
+          default: return "clipboard";
+        }
+      }
+      function capitalize(str) {
+        return str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+      }
+      function formatTime(ts) {
+        const d = new Date(ts);
+        return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      }
+    </script>
+  </body>
+</html>
