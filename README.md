@@ -45,22 +45,12 @@ AgriWare WMS/
 ├── worker/                   # Worker interface (tasks, scanner, shift log)
 ├── shared/                   # Shared components (auth, scripts, styles, partials)
 ├── assets/                   # Images, icons, and static assets
-└── ...                       # Other supporting files
-```
-```
-AgriWare WMS/
-├── index.html                # Entry point (landing page)
-├── admin/                    # Admin dashboard & management
-├── worker/                   # Worker interface (tasks, scanner, shift log)
-├── shared/                   # Shared components (auth, scripts, styles, partials)
-├── assets/                   # Images, icons, and static assets
 ├── final-farm-module/        # Farm module (optional/extension)
 ├── orders/                   # Order management pages and scripts
 ├── extract_file.py           # Script to extract file structure
 ├── all_filenames.txt         # List of all filenames in the project
 └── ...                       # Other supporting files and folders
 ```
----
 
 ## 🔑 Key Features
 
