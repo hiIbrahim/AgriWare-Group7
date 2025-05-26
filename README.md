@@ -11,7 +11,7 @@
 ```bash
 cd "AgriWare WMS"
 ```
-> ⚠️ **Do NOT use the `AGRIWARE-GROUP 7` folder.**  
+> ⚠️ **Do NOT use the `AgriWare-Legacy` folder.**  
 > That folder contains old, unstructured, and incomplete files which are not maintained.
 > It is only for reference and should not be used for development.
 > It paved our way to the current project structure.
