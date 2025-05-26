@@ -49,6 +49,7 @@ AgriWare WMS/
 ├── orders/                   # Order management pages and scripts
 ├── extract_file.py           # Script to extract file structure
 ├── all_filenames.txt         # List of all filenames in the project
+├── qaAutomation.txt          # QA automation notes and SQA plan
 └── ...                       # Other supporting files and folders
 ```
 
@@ -83,7 +84,7 @@ For issues or questions, please contact: bscs23143@itu.edu.pk
 ## ⚠️ Important Notes
 
 - **Only use the `AgriWare WMS` folder.**  
-  The `AGRIWARE-GROUP 7` folder is deprecated and not maintained.
+    The `AgriWare-Legacy` folder is deprecated and not maintained.
 - All features and pages are fully integrated in `AgriWare WMS`.
 - Start from index.html for the best experience.
 
