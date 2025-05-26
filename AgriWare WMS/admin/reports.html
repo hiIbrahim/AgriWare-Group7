@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reports - AgriWare WMS</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Shared CSS -->
+    <link href="../shared/styles/core/nav.css" rel="stylesheet" />
+    <link href="../shared/styles/core/cards.css" rel="stylesheet" />
+    <link href="../shared/styles/admin/admin.css" rel="stylesheet" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Date Range Picker -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+    />
+
+    <style>
+      :root {
+        --primary: #3a86ff;
+        --primary-dark: #2667cc;
+        --accent: #ff5e7d;
+        --success: #06d6a0;
+        --danger: #ef476f;
+        --warning: #ffd166;
+        --text-primary: #f8f9fa;
+        --text-secondary: #adb5bd;
+        --card-bg: #1a1a1a;
+        --card-border: #2a2a2a;
+        --bg-dark: #0f0f0f;
+        --bg-darker: #080808;
+        --light-bg: #181a20;
+      }
+
+      body {
+        background: var(--light-bg);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-primary);
+      }
+
+      .page-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: #fff;
+        padding: 1.5rem;
+        border-radius: 14px;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 25px rgba(58, 134, 255, 0.10);
+      }
+      .badge.bg-light.text-dark {
+        background: var(--card-bg) !important;
+        color: var(--primary) !important;
+        border: 1px solid var(--primary);
+        font-weight: 600;
+      }
+
+      .metric-card {
+        border-radius: 14px;
+        box-shadow: 0 5px 24px rgba(58,134,255,0.10);
+        border: 1px solid var(--card-border);
+        margin-bottom: 1.5rem;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        overflow: hidden;
+        border-left: 5px solid var(--primary);
+        height: 100%;
+        padding: 1.5rem;
+        background: var(--card-bg);
+        color: var(--text-primary);
+      }
+      .metric-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(58,134,255,0.18);
+        border-color: var(--primary);
+      }
+      .metric-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .metric-header i {
+        font-size: 2rem;
+        color: var(--primary);
+        margin-right: 18px;
+      }
+      .metric-value {
+        font-size: 2.3rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 0;
+      }
+      .export-options {
+        display: none;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .btn-export, .btn-export.export-chart {
+        padding: 5px 14px;
+        font-size: 0.95rem;
+        border-radius: 50px;
+        font-weight: 600;
+        border: none;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(58,134,255,0.10);
+      }
+      .btn-export.export-csv {
+        background: linear-gradient(145deg, #28a745, #218838);
+      }
+      .btn-export.export-pdf {
+        background: linear-gradient(145deg, #dc3545, #b52a37);
+      }
+      .btn-export:hover, .btn-export:focus {
+        background: linear-gradient(145deg, var(--accent), var(--primary));
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(58,134,255,0.18);
+      }
+      .btn-outline-secondary, .btn-outline-primary {
+        border-radius: 50px;
+        font-weight: 600;
+      }
+
+      .card, .report-card {
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(58,134,255,0.06);
+        border: 1px solid var(--card-border);
+        margin-bottom: 28px;
+        background: var(--card-bg);
+        color: var(--text-primary);
+      }
+      .card-header, .report-card .card-header {
+        background: var(--card-bg);
+        border-bottom: 1px solid var(--card-border);
+        font-weight: 600;
+        font-size: 1.15rem;
+        padding: 16px 22px;
+      }
+      .report-card .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chart-container {
+        position: relative;
+        height: 320px;
+        width: 100%;
+        background: var(--card-bg);
+        border-radius: 14px;
+        padding: 1rem;
+        box-shadow: 0 5px 24px rgba(58,134,255,0.10);
+        border: 1px solid var(--card-border);
+        color: var(--text-primary);
+      }
+
+      .table {
+        background: var(--card-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 0;
+        color: var(--text-primary);
+      }
+      .table thead th {
+        background-color: var(--primary) !important;
+        color: #fff !important;
+        font-weight: 600;
+        border: none;
+      }
+      .table tbody tr {
+        transition: background-color 0.2s;
+      }
+      .table tbody tr:hover {
+        background-color: rgba(58,134,255,0.07) !important;
+      }
+      #lowStockTable {
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+      #lowStockTable tbody td {
+        padding: 12px 16px;
+        vertical-align: middle;
+      }
+
+      .status-badge {
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+      .status-critical {
+        background-color: #ffebee;
+        color: #d32f2f;
+      }
+      .status-warning {
+        background-color: #fff8e1;
+        color: #ff8f00;
+      }
+
+      .daterangepicker {
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      }
+      .daterangepicker td.active {
+        background-color: var(--primary);
+      }
+
+      @media (max-width: 768px) {
+        .card-grid {
+          gap: 15px;
+        }
+        .metric-card {
+          padding: 18px 12px;
+        }
+        .metric-value {
+          font-size: 1.5rem;
+        }
+        .date-range-container .col-md-8,
+        .date-range-container .col-md-4 {
+          width: 100%;
+        }
+        .chart-container {
+          height: 220px;
+        }
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Dynamic Navbar -->
+    <div id="navbarContainer"></div>
+    <main class="container flex-grow-1 py-4">
+      <div class="page-header d-flex justify-content-between align-items-center flex-wrap mb-5">
+        <div>
+          <h1 class="mb-2">
+            <i class="fas fa-chart-bar me-2"></i>Reports Dashboard
+          </h1>
+        </div>
+        <span id="roleBadge" class="badge bg-light text-dark fs-6"></span>
+      </div>
+
+      <div class="mb-4 d-flex justify-content-end">
+        <button class="btn btn-export" id="exportAllBtn">
+          <i class="fas fa-file-export me-1"></i> Export All
+        </button>
+      </div>
+
+      <!-- Date Range Picker -->
+      <div class="card date-range-container mb-4">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <label class="form-label fw-semibold">Date Range</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="dateRangePicker" />
+                <span class="input-group-text bg-dark border-0">
+                  <i class="fas fa-calendar-alt"></i>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+              <button class="btn btn-export" id="applyDateRange">
+                <i class="fas fa-filter me-1"></i> Apply Filter
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="row card-grid mb-4">
+        <div class="col-md-6">
+          <div class="metric-card h-100">
+            <div class="metric-header">
+              <i class="fas fa-boxes"></i>
+              <h3 class="mb-0">Inventory Value</h3>
+            </div>
+            <p class="metric-value" id="inventoryValue">$0</p>
+            <div class="export-options d-flex">
+              <button class="btn btn-sm btn-export export-csv">
+                <i class="fas fa-file-csv me-1"></i> CSV
+              </button>
+              <button class="btn btn-sm btn-export export-pdf">
+                <i class="fas fa-file-pdf me-1"></i> PDF
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="metric-card h-100">
+            <div class="metric-header">
+              <i class="fas fa-truck"></i>
+              <h3 class="mb-0">Orders This Month</h3>
+            </div>
+            <p class="metric-value" id="monthlyOrders">0</p>
+            <div class="export-options d-flex">
+              <button class="btn btn-sm btn-export export-csv">
+                <i class="fas fa-file-csv me-1"></i> CSV
+              </button>
+              <button class="btn btn-sm btn-export export-pdf">
+                <i class="fas fa-file-pdf me-1"></i> PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card report-card">
+            <div class="card-header">
+              <span>Inventory Turnover</span>
+              <button class="btn btn-sm btn-export export-chart" data-chart="turnover">
+                <i class="fas fa-download me-1"></i> Export
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="turnoverChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card report-card">
+            <div class="card-header">
+              <span>Supplier Performance</span>
+              <button class="btn btn-sm btn-export export-chart" data-chart="supplier">
+                <i class="fas fa-download me-1"></i> Export
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="supplierChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Tables -->
+      <div class="card mt-4 border-0 shadow-sm">
+        <div class="card-header bg-dark d-flex justify-content-between align-items-center border-0 pb-0">
+          <h3 class="m-0">
+            <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+            Low Stock Report
+          </h3>
+          <div class="d-flex">
+            <button class="btn btn-sm btn-outline-secondary me-2" id="exportStockBtn">
+              <i class="fas fa-file-export me-1"></i> Export
+            </button>
+            <button class="btn btn-sm btn-outline-primary" id="runReportBtn">
+              <i class="fas fa-sync me-1"></i> Regenerate
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive rounded-3 overflow-hidden">
+            <table id="lowStockTable" class="table table-hover mb-0">
+              <thead class="table-dark">
+                <tr>
+                  <th class="ps-3"><i class="fas fa-barcode me-1"></i> Product ID</th>
+                  <th class="ps-3"><i class="fas fa-tag me-1"></i> Name</th>
+                  <th class="text-center"><i class="fas fa-boxes me-1"></i> Stock</th>
+                  <th class="text-center"><i class="fas fa-flag me-1"></i> Reorder Point</th>
+                  <th class="ps-3"><i class="fas fa-truck me-1"></i> Supplier</th>
+                  <th class="text-end pe-3"><i class="fas fa-info-circle me-1"></i> Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="placeholder-row">
+                  <td colspan="6" class="text-center py-4 text-muted">
+                    <i class="fas fa-spinner fa-spin me-2"></i>
+                    Loading low stock items...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div id="footerContainer"></div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script type="module" src="../shared/scripts/config.js"></script>
+    <script type="module" src="../shared/scripts/ui/navbar.js"></script>
+    <script type="module" src="../shared/scripts/ui/rolebadge.js"></script>
+    <script type="module" src="../shared/scripts/ui/notification.js"></script>
+    <script type="module" src="../shared/scripts/inventory/alerts.js"></script>
+    <script type="module" src="../shared/scripts/suppliers/performance.js"></script>
+
+    <script type="module">
+      import { getLowStockItems } from "../shared/scripts/inventory/alerts.js";
+      import {
+        calculateSupplierMetrics,
+        flagUnderperformers,
+      } from "../shared/scripts/suppliers/performance.js";
+      import { showNotification } from "../shared/scripts/ui/notification.js";
+      import { checkSession } from "../shared/scripts/auth/session.js";
+
+      checkSession();
+
+      const appState = {
+        charts: {
+          turnover: null,
+          supplier: null,
+        },
+        currentDateRange: {
+          start: moment().subtract(30, "days"),
+          end: moment(),
+        },
+      };
+
+      async function loadFooter() {
+        const res = await fetch("../shared/partials/footer.html");
+        document.getElementById("footerContainer").innerHTML = await res.text();
+      }
+      document.addEventListener("DOMContentLoaded", async () => {
+        try {
+          await loadFooter();
+          await initComponents();
+          initDatePicker();
+          await loadReportData();
+          setupEventListeners();
+        } catch (error) {
+          console.error("Initialization failed:", error);
+          showNotification("Failed to load report data", "error");
+        }
+      });
+
+      async function initComponents() {
+        document.getElementById("roleBadge").innerHTML = `
+          <i class="fas fa-user-shield me-1"></i> Admin
+        `;
+      }
+
+      function initDatePicker() {
+        $("#dateRangePicker")
+          .daterangepicker({
+            opens: "left",
+            startDate: appState.currentDateRange.start,
+            endDate: appState.currentDateRange.end,
+            locale: { format: "YYYY-MM-DD" },
+            ranges: {
+              Today: [moment(), moment()],
+              "Last 7 Days": [moment().subtract(6, "days"), moment()],
+              "Last 30 Days": [moment().subtract(29, "days"), moment()],
+              "This Month": [
+                moment().startOf("month"),
+                moment().endOf("month"),
+              ],
+              "Last Month": [
+                moment().subtract(1, "month").startOf("month"),
+                moment().subtract(1, "month").endOf("month"),
+              ],
+            },
+          })
+          .on("apply.daterangepicker", async (ev, picker) => {
+            appState.currentDateRange = {
+              start: picker.startDate,
+              end: picker.endDate,
+            };
+            await loadReportData();
+          });
+      }
+
+      async function loadReportData() {
+        try {
+          showNotification("Loading report data...", "info");
+
+          const { start, end } = appState.currentDateRange;
+          const startDate = start.format("YYYY-MM-DD");
+          const endDate = end.format("YYYY-MM-DD");
+
+          const [inventory, suppliers, orders] = await Promise.all([
+            getInventoryData(),
+            getSupplierData(),
+            getOrderData(startDate, endDate),
+          ]);
+
+          renderMetrics(inventory, orders);
+          renderLowStockReport(inventory, suppliers);
+          renderCharts(inventory, suppliers, orders, startDate, endDate);
+
+          showNotification("Report data loaded successfully", "success");
+        } catch (error) {
+          console.error("Error loading report data:", error);
+          showNotification("Failed to load report data", "error");
+        }
+      }
+
+      async function getInventoryData() {
+        const inventory = JSON.parse(localStorage.getItem("inventory")) || [];
+        if (!inventory.length) {
+          console.warn("No inventory data found");
+        }
+        return inventory;
+      }
+
+      async function getSupplierData() {
+        const suppliers = JSON.parse(localStorage.getItem("suppliers")) || [];
+        if (!suppliers.length) {
+          console.warn("No supplier data found");
+        }
+        return suppliers;
+      }
+
+      async function getOrderData(startDate, endDate) {
+        const orders = JSON.parse(localStorage.getItem("orders")) || [];
+        return orders.filter((order) => {
+          const orderDate = order.orderDate.split("T")[0];
+          return orderDate >= startDate && orderDate <= endDate;
+        });
+      }
+
+      function renderMetrics(inventory, orders) {
+        const inventoryValue = inventory.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        document.getElementById(
+          "inventoryValue"
+        ).textContent = `$${inventoryValue.toLocaleString()}`;
+
+        document.getElementById("monthlyOrders").textContent = orders.length;
+      }
+
+      function renderLowStockReport(inventory, suppliers) {
+        const lowStockItems = getLowStockItems(inventory);
+        const tbody = document.querySelector("#lowStockTable tbody");
+
+        tbody.innerHTML = lowStockItems
+          .map((item) => {
+            const supplier = suppliers.find((s) => s.id === item.supplierId);
+            const stockClass =
+              item.quantity < (item.reorderPoint || 5)
+                ? "text-danger"
+                : "text-warning";
+
+            return `
+            <tr>
+              <td>${item.id}</td>
+              <td>${item.name}</td>
+              <td class="${stockClass}">${item.quantity}</td>
+              <td>${item.reorderPoint || "N/A"}</td>
+              <td>${supplier?.name || "No supplier"}</td>
+              <td class="text-end pe-3">
+                <span class="status-badge ${
+                  item.quantity < (item.reorderPoint || 5)
+                    ? "status-critical"
+                    : "status-warning"
+                }">
+                  ${
+                    item.quantity < (item.reorderPoint || 5)
+                      ? "Critical"
+                      : "Warning"
+                  }
+                </span>
+              </td>
+            </tr>
+          `;
+          })
+          .join("");
+      }
+
+      function renderCharts(inventory, suppliers, orders, startDate, endDate) {
+        renderTurnoverChart(inventory, startDate, endDate);
+        renderSupplierChart(suppliers, orders);
+      }
+
+      function renderTurnoverChart(inventory, startDate, endDate) {
+        const ctx = document.getElementById("turnoverChart").getContext("2d");
+        if (appState.charts.turnover) {
+          appState.charts.turnover.destroy();
+        }
+        const turnoverData = {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "Inventory Turnover",
+              data: [12, 19, 15, 8, 12, 17],
+              backgroundColor: "rgba(44, 120, 115, 0.7)",
+            },
+          ],
+        };
+        appState.charts.turnover = new Chart(ctx, {
+          type: "bar",
+          data: turnoverData,
+          options: getChartOptions(
+            `Inventory Turnover (${startDate} to ${endDate})`
+          ),
+        });
+      }
+
+      function renderSupplierChart(suppliers, orders) {
+        const ctx = document.getElementById("supplierChart").getContext("2d");
+        if (appState.charts.supplier) {
+          appState.charts.supplier.destroy();
+        }
+        const metrics = calculateSupplierMetrics(suppliers, orders);
+        appState.charts.supplier = new Chart(ctx, {
+          type: "radar",
+          data: {
+            labels: suppliers.map((s) => s.name),
+            datasets: [
+              {
+                label: "Performance Score",
+                data: metrics.map((m) => m.overallScore),
+                backgroundColor: "rgba(111, 185, 143, 0.2)",
+                borderColor: "rgba(111, 185, 143, 1)",
+              },
+            ],
+          },
+          options: getChartOptions("Supplier Performance Metrics"),
+        });
+      }
+
+      function getChartOptions(title) {
+        return {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: title,
+              color: "#f8f9fa",
+              font: { size: 16 }
+            },
+            legend: {
+              labels: { color: "#f8f9fa" }
+            },
+            tooltip: {
+              mode: "index",
+              intersect: false,
+            },
+          },
+          scales: {
+            x: {
+              ticks: { color: "#f8f9fa" },
+              grid: { color: "rgba(58,134,255,0.08)" }
+            },
+            y: {
+              beginAtZero: true,
+              ticks: { color: "#f8f9fa" },
+              grid: { color: "rgba(58,134,255,0.08)" }
+            },
+          },
+        };
+      }
+
+      function exportToCSV(data, filename) {
+        if (!data || !data.length) {
+          showNotification("No data available to export", "warning");
+          return;
+        }
+        try {
+          const headers = Object.keys(data[0]).join(",");
+          const rows = data.map((item) =>
+            Object.values(item)
+              .map((val) =>
+                typeof val === "string" ? `"${val.replace(/"/g, '""')}"` : val
+              )
+              .join(",")
+          );
+          const csvContent = [headers, ...rows].join("\n");
+          const blob = new Blob([csvContent], {
+            type: "text/csv;charset=utf-8;",
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${filename}_${
+            new Date().toISOString().split("T")[0]
+          }.csv`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showNotification(`Exported ${filename} successfully`, "success");
+        } catch (error) {
+          console.error("CSV export failed:", error);
+          showNotification("Failed to export CSV", "error");
+        }
+      }
+
+      function exportToPDF() {
+        try {
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+          doc.setFontSize(18);
+          doc.text("AgriWare WMS Report", 105, 15, { align: "center" });
+          doc.setFontSize(12);
+          doc.text(
+            `Date Range: ${appState.currentDateRange.start.format(
+              "YYYY-MM-DD"
+            )} to ${appState.currentDateRange.end.format("YYYY-MM-DD")}`,
+            105,
+            25,
+            { align: "center" }
+          );
+          doc.setFontSize(14);
+          doc.text(
+            `Inventory Value: ${
+              document.getElementById("inventoryValue").textContent
+            }`,
+            14,
+            40
+          );
+          doc.text(
+            `Total Orders: ${
+              document.getElementById("monthlyOrders").textContent
+            }`,
+            14,
+            50
+          );
+          doc.text("[Inventory Turnover Chart]", 14, 70);
+          doc.text("[Supplier Performance Chart]", 14, 120);
+          doc.autoTable({
+            startY: 140,
+            head: [
+              [
+                "Product ID",
+                "Name",
+                "Stock",
+                "Reorder Point",
+                "Supplier",
+                "Status",
+              ],
+            ],
+            body: Array.from(
+              document.querySelectorAll("#lowStockTable tbody tr")
+            ).map((tr) => Array.from(tr.children).map((td) => td.textContent)),
+          });
+          doc.save(`wms_report_${new Date().toISOString().split("T")[0]}.pdf`);
+          showNotification("PDF exported successfully", "success");
+        } catch (error) {
+          console.error("PDF export failed:", error);
+          showNotification("Failed to export PDF", "error");
+        }
+      }
+
+      function setupEventListeners() {
+        document.querySelectorAll(".metric-card").forEach((card) => {
+          card.addEventListener("click", (e) => {
+            if (!e.target.closest("button")) {
+              const exportDiv = card.querySelector(".export-options");
+              exportDiv.style.display =
+                exportDiv.style.display === "flex" ? "none" : "flex";
+            }
+          });
+        });
+        document
+          .getElementById("exportAllBtn")
+          .addEventListener("click", exportToPDF);
+        document
+          .getElementById("exportStockBtn")
+          .addEventListener("click", () => {
+            const inventory =
+              JSON.parse(localStorage.getItem("inventory")) || [];
+            exportToCSV(getLowStockItems(inventory), "low_stock_report");
+          });
+        document
+          .getElementById("runReportBtn")
+          .addEventListener("click", loadReportData);
+      }
+    </script>
+  </body>
+</html>

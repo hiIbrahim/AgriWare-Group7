@@ -1,0 +1,103 @@
+/* Reports-specific styles */
+.report-actions {
+  transition: all 0.2s ease;
+}
+
+.export-options {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.metric-card:hover .export-options {
+  display: flex;
+}
+
+/* Add these styles to your reports.css */
+.report-card {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.report-card:hover {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.table-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.table-primary th {
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.placeholder-row {
+  background-color: rgba(248, 249, 252, 0.5);
+}
+
+.btn-refresh:hover i {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Stock level indicators */
+.stock-critical {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.stock-warning {
+  color: #fd7e14;
+  font-weight: 500;
+}
+
+.stock-ok {
+  color: #28a745;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-critical {
+  background-color: #fff5f5;
+  color: #dc3545;
+}
+
+.status-warning {
+  background-color: #fff8e6;
+  color: #fd7e14;
+}
+#lowStockTable tbody tr:hover {
+  background-color: rgba(111, 185, 143, 0.1); /* Match inventory */
+}
+#lowStockTable thead th {
+  font-weight: 600; /* Match inventory */
+}
