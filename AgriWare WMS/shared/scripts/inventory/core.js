@@ -47,7 +47,7 @@ export function populateSupplierDropdown() {
   const supplierSelect = document.getElementById("prodSupplier");
   if (!supplierSelect) return;
   supplierSelect.innerHTML = `<option value="">Select Supplier</option>`;
-  const suppliers = JSON.parse(localStorage.getItem("suppliers")) || [];
+  const suppliers = JSON.parse(localStorage.getItem("wms_suppliers")) || [];
   suppliers.forEach((s) => {
     supplierSelect.innerHTML += `<option value="${s.id}">${s.name}</option>`;
   });
@@ -61,7 +61,7 @@ export async function loadInventoryData() {
 }
 
 export function renderInventory(filteredItems = null) {
-  const suppliers = JSON.parse(localStorage.getItem("suppliers")) || [];
+  const suppliers = JSON.parse(localStorage.getItem("wms_suppliers")) || [];
   const dataToRender = filteredItems || inventory;
   const enhancedInventory = predictStockouts(
     calculateReorderPoints(linkItemsToSuppliers(dataToRender, suppliers))
@@ -138,7 +138,7 @@ export function renderInventory(filteredItems = null) {
 
 export function getSupplierName(supplierId) {
   if (!supplierId) return "N/A";
-  const suppliers = JSON.parse(localStorage.getItem("suppliers")) || [];
+  const suppliers = JSON.parse(localStorage.getItem("wms_suppliers")) || [];
   const supplier = suppliers.find((s) => s.id == supplierId);
   return supplier ? supplier.name : "N/A";
 }
@@ -154,92 +154,6 @@ export function updateMetrics() {
       new Date(p.expiryDate) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
   ).length;
 }
-
-// export function initModal() {
-//   const modalElement = document.getElementById('productModal');
-//   const productModal = new bootstrap.Modal(modalElement, {
-//     keyboard: false,
-//     backdrop: 'static'
-//   });
-
-//   document.getElementById("addProductBtn").onclick = () => {
-//     document.getElementById("productForm").reset();
-//     delete document.getElementById("saveProductBtn").dataset.editing;
-//     productModal.show();
-//   };
-
-//   document.getElementById("saveProductBtn").onclick = () => {
-//     saveProduct(productModal);
-//   };
-
-//   modalElement.addEventListener('hidden.bs.modal', () => {
-//     document.getElementById("productForm").reset();
-//   });
-// }
-
-// function saveProduct(productModal) {
-//   const name = document.getElementById("prodName").value.trim();
-//   const category = document.getElementById("prodCategory").value;
-//   const quantity = Number(document.getElementById("prodQuantity").value);
-//   const price = Number(document.getElementById("prodPrice").value);
-//   const supplier = document.getElementById("prodSupplier").value;
-//   const expiryDate = document.getElementById("prodExpiry").value;
-//   const location = document.getElementById("prodLocation").value;
-//   const notes = document.getElementById("prodNotes").value;
-//   const editingId = document.getElementById("saveProductBtn").dataset.editing;
-
-//   if (!name || !category || isNaN(quantity) || isNaN(price)) {
-//     showNotification("Please fill all required fields.", "warning");
-//     return;
-//   }
-
-//   try {
-//     if (editingId) {
-//       // Edit existing
-//       const product = inventory.find((p) => p.id === editingId);
-//       if (product) {
-//         product.name = name;
-//         product.category = category;
-//         product.quantity = quantity;
-//         product.price = price;
-//         product.supplier = supplier;
-//         product.expiryDate = expiryDate;
-//         product.location = location;
-//         product.notes = notes;
-//         product.lastUpdated = new Date().toISOString();
-//       }
-//       delete document.getElementById("saveProductBtn").dataset.editing;
-//       showNotification("Product updated successfully", "success");
-//     } else {
-//       // Add new
-//       const newProduct = {
-//         id: `PROD-${Date.now().toString(36).toUpperCase()}`,
-//         name,
-//         category,
-//         quantity,
-//         price,
-//         supplier,
-//         expiryDate,
-//         location,
-//         notes,
-//         lastUpdated: new Date().toISOString(),
-//         reorderPoint: 10,
-//         last30daysUsage: 0,
-//         usageHistory: [],
-//       };
-//       inventory.push(newProduct);
-//       showNotification("Product added successfully", "success");
-//     }
-//     saveInventory();
-//     renderInventory();
-//     updateMetrics();
-//     productModal.hide();
-//     document.getElementById("productForm").reset();
-//   } catch (error) {
-//     console.error("Save error:", error);
-//     showNotification("Error saving product: " + error.message, "error");
-//   }
-// }
 
 function saveInventory() {
   try {
@@ -341,7 +255,7 @@ function exportInventory() {
 async function handleAutoReorder() {
   try {
     showNotification("Generating purchase orders...", "info");
-    const suppliers = JSON.parse(localStorage.getItem("suppliers")) || [];
+    const suppliers = JSON.parse(localStorage.getItem("wms_suppliers")) || [];
     const poList = generatePurchaseOrders(inventory, suppliers);
 
     const poResults = document.getElementById("poResults");

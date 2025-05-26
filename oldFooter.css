@@ -1,7 +1,7 @@
-.footer {
+/* .footer {
     padding: 20px 0;
     border-top: 1px solid #F2F2F2;
-    font-family: 'Khmer OS', sans-serif; /* Assuming Khmer font */
+    font-family: 'Khmer OS', sans-serif; 
 }
 
 .contact-info {
@@ -27,7 +27,7 @@
 
 .footer-text-group {
     display: flex;
-    gap: 20px; /* Space between the text items */
+    gap: 20px; 
 }
 
 .footer-text {
@@ -47,7 +47,6 @@
     text-decoration: underline;
 }
 
-/* Responsive adjustments */
 @media (max-width: 767.98px) {
     .footer {
         text-align: center;
@@ -62,4 +61,4 @@
         text-align: center;
         margin-top: 10px;
     }
-}
+} */

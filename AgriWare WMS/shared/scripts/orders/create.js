@@ -32,6 +32,7 @@ function initOrderCreation() {
   setupSuppliers();
   setupEventListeners();
   renderCart();
+  renderProductSelect();
 }
 
 function verifyPermissions() {
@@ -44,7 +45,8 @@ function verifyPermissions() {
 
 function loadProducts() {
   try {
-    const products = JSON.parse(localStorage.getItem("wms_products")) || [];
+    // Only show products with quantity > 0
+    const products = (JSON.parse(localStorage.getItem("wms_products")) || []).filter(p => p.quantity > 0);
     renderProducts(products);
   } catch (error) {
     showNotification("Failed to load products", "error");
@@ -61,13 +63,13 @@ function renderProducts(products) {
     card.dataset.productId = product.id;
     if (cart.some(item => item.id === product.id)) card.classList.add("selected");
     card.innerHTML = `
-      <div class="product-image"><img src="${product.image || '/assets/box.png'}" alt="${product.name}"></div>
+      <div class="product-image"><img src="${product.image || '../assets/box.png'}" alt="${product.name}"></div>
       <div class="product-body">
         <div class="product-name">${product.name}</div>
         <div class="product-sku">${product.id}</div>
         <div class="product-meta">
           <span class="product-price">$${Number(product.price).toFixed(2)}</span>
-          <span class="stock-badge badge-${getStockBadge(product.quantity)}">${product.quantity} in stock</span>
+          <span class="badge bg-light text-dark stock-badge">${product.quantity} in stock</span>
         </div>
       </div>
     `;
@@ -84,9 +86,19 @@ function getStockBadge(qty) {
 }
 
 function addToCart(product) {
+  if (product.quantity <= 0) {
+    showNotification("This product is out of stock and cannot be ordered.", "warning");
+    return;
+  }
+
   const index = cart.findIndex(item => item.id === product.id);
   if (index >= 0) {
-    cart.splice(index, 1);
+    // If already in cart, increase quantity by 1, up to max stock
+    if (cart[index].quantity < product.quantity) {
+      cart[index].quantity += 1;
+    } else {
+      showNotification("You can't order more than available stock.", "warning");
+    }
   } else {
     cart.push({ ...product, quantity: 1 });
   }
@@ -126,14 +138,38 @@ function renderCart() {
   itemCount.textContent = `${cart.length} items`;
   list.innerHTML = cart
     .map(
-      (item) => `
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      <span>${item.name} <span class="text-muted">x${item.quantity}</span></span>
-      <span>$${(item.price * item.quantity).toFixed(2)}</span>
-    </li>
-  `
+      (item, idx) => `
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <span>
+      ${item.name}
+      <span class="text-muted">x</span>
+      <input type="number" min="1" max="${item.quantity}" value="${item.quantity}" style="width:60px"
+        data-idx="${idx}" class="cart-qty-input" />
+      <span class="text-muted">/ ${getProductStock(item.id)}</span>
+    </span>
+    <span>$${(item.price * item.quantity).toFixed(2)}</span>
+    <button class="btn btn-sm btn-danger ms-2 remove-item-btn" data-idx="${idx}">&times;</button>
+  </li>
+`
     )
     .join("");
+  // Quantity change
+  list.querySelectorAll(".cart-qty-input").forEach(input => {
+    input.addEventListener("input", (e) => {
+      const idx = Number(e.target.dataset.idx);
+      let val = Math.max(1, Math.min(Number(e.target.value), getProductStock(cart[idx].id)));
+      cart[idx].quantity = val;
+      renderCart();
+    });
+  });
+  // Remove item
+  list.querySelectorAll(".remove-item-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const idx = Number(btn.dataset.idx);
+      cart.splice(idx, 1);
+      renderCart();
+    });
+  });
   updateTotals();
   updateSubmitButton();
 }
@@ -296,4 +332,27 @@ function resetOrderForm() {
   renderCart();
   elements.shippingForm.reset();
   updateSubmitButton();
+}
+
+function renderProductSelect() {
+  const select = document.getElementById("productSelect");
+  if (!select) return;
+  // Only show products with quantity > 0
+  const products = (JSON.parse(localStorage.getItem("wms_products")) || []).filter(p => p.quantity > 0);
+  select.innerHTML = `<option value="">-- Select a product --</option>`;
+  products.forEach(product => {
+    const opt = document.createElement("option");
+    opt.value = product.id;
+    opt.textContent = `${product.name} (Stock: ${product.quantity})`;
+    select.appendChild(opt);
+  });
+}
+
+// Call this after DOMContentLoaded or when the form is shown
+document.addEventListener("DOMContentLoaded", renderProductSelect);
+
+function getProductStock(productId) {
+  const products = JSON.parse(localStorage.getItem("wms_products")) || [];
+  const prod = products.find(p => p.id === productId);
+  return prod ? prod.quantity : 0;
 }

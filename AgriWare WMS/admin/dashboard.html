@@ -330,7 +330,7 @@
                 <h3>Total Products</h3>
               </div>
               <p class="metric-value" id="totalProducts">0</p>
-              <a href="/admin/inventory.html" class="metric-link">
+              <a href="inventory.html" class="metric-link">
                 View Inventory <i class="fas fa-arrow-right"></i>
               </a>
             </div>
@@ -344,7 +344,7 @@
                 <h3>Active Suppliers</h3>
               </div>
               <p class="metric-value" id="supplierCount">0</p>
-              <a href="/admin/suppliers.html" class="metric-link">
+              <a href="suppliers.html" class="metric-link">
                 Manage Suppliers <i class="fas fa-arrow-right"></i>
               </a>
             </div>
@@ -358,7 +358,7 @@
                 <h3>Low Stock</h3>
               </div>
               <p class="metric-value" id="lowStockCount">0</p>
-              <a href="/admin/inventory.html?filter=low_stock" class="metric-link">
+              <a href="inventory.html?filter=low_stock" class="metric-link">
                 Reorder Now <i class="fas fa-arrow-right"></i>
               </a>
             </div>
@@ -372,7 +372,7 @@
                 <h3>Pending Orders</h3>
               </div>
               <p class="metric-value" id="pendingOrders">0</p>
-              <a href="/orders/status.html" class="metric-link">
+              <a href="../orders/status.html" class="metric-link">
                 View Orders <i class="fas fa-arrow-right"></i>
               </a>
             </div>
@@ -409,13 +409,13 @@
           <button id="quickReorderBtn" class="quick-action-btn">
             <i class="fas fa-robot"></i> Auto-Reorder
           </button>
-          <a href="/admin/reports.html" class="quick-action-btn">
+          <a href="reports.html" class="quick-action-btn">
             <i class="fas fa-chart-bar"></i> View Reports
           </a>
-          <a href="/orders/new.html" class="quick-action-btn">
+          <a href="../orders/new.html" class="quick-action-btn">
             <i class="fas fa-plus-circle"></i> New Order
           </a>
-          <a href="/admin/staff.html" class="quick-action-btn">
+          <a href="staff.html" class="quick-action-btn">
             <i class="fas fa-users-cog"></i> Manage Staff
           </a>
         </div>
@@ -514,10 +514,10 @@
           document.getElementById("totalProducts").textContent = inventory.length;
           document.getElementById("lowStockCount").textContent = getLowStockItems(inventory).length;
 
-          const suppliers = JSON.parse(localStorage.getItem("suppliers")) || [];
+          const suppliers = JSON.parse(localStorage.getItem("wms_suppliers")) || [];
           document.getElementById("supplierCount").textContent = suppliers.length;
 
-          const orders = JSON.parse(localStorage.getItem("orders")) || [];
+          const orders = JSON.parse(localStorage.getItem("wms_orders")) || [];
           document.getElementById("pendingOrders").textContent = getPendingOrders(orders).length;
 
           loadRecentActivity();

@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function verifyProfileAccess() {
   const user = JSON.parse(localStorage.getItem("wms_user"));
   if (!checkPermission(user?.role, 'access_profile')) {
-    window.location.href = '../../shared/401.html';
+    window.location.href = '../shared/401.html';
   }
 }
 

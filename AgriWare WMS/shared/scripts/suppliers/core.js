@@ -6,7 +6,7 @@ import {
 import { checkBlacklist, blacklistSupplier } from "./blacklist.js";
 import { loadFooter } from "../ui/footer.js";
 
-let suppliers = JSON.parse(localStorage.getItem("suppliers")) || [];
+let suppliers = JSON.parse(localStorage.getItem("wms_suppliers")) || [];
 
 // Initialize page
 document.addEventListener("DOMContentLoaded", () => {
@@ -155,7 +155,7 @@ function setupEventListeners() {
       sessionStorage.setItem("selectedSupplierId", orderBtn.dataset.supid);
       sessionStorage.setItem("selectedSupplierName", orderBtn.dataset.supname);
       sessionStorage.setItem("selectedSupplierContact", orderBtn.dataset.supcontact); // <-- add this
-      window.location.href = "/orders/new.html";
+      window.location.href = "../orders/new.html";
       return;
     }
 
@@ -171,7 +171,7 @@ function setupEventListeners() {
       const supplierId = deleteBtn.dataset.id;
       if (confirm("Are you sure you want to delete this supplier?")) {
         suppliers = suppliers.filter(s => s.id !== supplierId);
-        localStorage.setItem("suppliers", JSON.stringify(suppliers));
+        localStorage.setItem("wms_suppliers", JSON.stringify(suppliers));
         localStorage.setItem("wms_suppliers", JSON.stringify(suppliers)); // <-- always sync!
         renderSuppliers();
       }
@@ -213,7 +213,7 @@ function addSupplier() {
   };
 
   suppliers.push(newSupplier);
-  localStorage.setItem("suppliers", JSON.stringify(suppliers));
+  localStorage.setItem("wms_suppliers", JSON.stringify(suppliers));
   localStorage.setItem("wms_suppliers", JSON.stringify(suppliers)); // <-- always sync!
   renderSuppliers();
   closeModal();
@@ -270,7 +270,7 @@ function editSupplier(supplierId) {
     supplier.averageLeadTime = parseInt(document.getElementById("supLeadTime").value) || 7;
     supplier.certifiedCategories = Array.from(document.getElementById("supCategories").selectedOptions).map(opt => opt.value);
     supplier.lastUpdated = new Date().toISOString();
-    localStorage.setItem("suppliers", JSON.stringify(suppliers));
+    localStorage.setItem("wms_suppliers", JSON.stringify(suppliers));
     localStorage.setItem("wms_suppliers", JSON.stringify(suppliers)); // <-- always sync!
     renderSuppliers();
     closeModal();

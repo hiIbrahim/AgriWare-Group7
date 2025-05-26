@@ -256,8 +256,8 @@
       document.addEventListener("DOMContentLoaded", async () => {
         // Load components
         await Promise.all([
-          loadComponent("navbarContainer", "/shared/partials/navbar.html"),
-          loadComponent("footerContainer", "/shared/partials/footer.html"),
+          loadComponent("navbarContainer", "../shared/partials/navbar.html"),
+          loadComponent("footerContainer", "../shared/partials/footer.html"),
         ]);
         
         // Set up search functionality

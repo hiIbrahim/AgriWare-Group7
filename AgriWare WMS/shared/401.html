@@ -237,8 +237,8 @@
       document.addEventListener("DOMContentLoaded", async () => {
         // Load minimal components
         await Promise.all([
-          loadComponent("navbarContainer", "/shared/partials/navbar.html"),
-          loadComponent("footerContainer", "/shared/partials/footer.html"),
+          loadComponent("navbarContainer", "../shared/partials/navbar.html"),
+          loadComponent("footerContainer", "../shared/partials/footer.html"),
         ]);
         
         // Simplify navbar for error page

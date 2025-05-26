@@ -175,6 +175,14 @@
       } from "./scripts/ui/navbar.js";
       import { showNotification } from "./scripts/ui/notification.js";
 
+      // Helper to get relative prefix
+      function getRelPrefix() {
+        // e.g. /shared/profile.html => "./"
+        //      /admin/staff.html   => "../"
+        const depth = window.location.pathname.replace(/\\/g, "/").split("/").length - 2;
+        return depth > 1 ? "../" : "./";
+      }
+
       document.addEventListener("DOMContentLoaded", async () => {
         try {
           // Show loading state
@@ -186,16 +194,16 @@
           `;
           const user = await checkSession();
           if (!user) {
-            window.location.href = "/shared/login.html";
+            window.location.href = getRelPrefix() + "shared/login.html";
             return;
           }
 
-          // Load Navbar and Footer
-          await loadComponent("navbarContainer", "/shared/partials/navbar.html");
+          // Load Navbar and Footer using RELATIVE paths
+          await loadComponent("navbarContainer", getRelPrefix() + "shared/partials/navbar.html");
           await initializeNavbar();
           attachNavbarHandlers();
-          
-          await loadComponent("footerContainer", "/shared/partials/footer.html");
+
+          await loadComponent("footerContainer", getRelPrefix() + "shared/partials/footer.html");
 
           // Update profile header
           document.getElementById("profileName").textContent =
@@ -232,7 +240,7 @@
         } catch (error) {
           console.error("Profile page error:", error);
           showNotification("Failed to load profile", "error");
-          window.location.href = "/shared/login.html";
+          window.location.href = getRelPrefix() + "shared/login.html";
         }
       });
 

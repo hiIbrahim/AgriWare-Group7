@@ -513,7 +513,8 @@
       }
 
       async function getInventoryData() {
-        const inventory = JSON.parse(localStorage.getItem("inventory")) || [];
+        // Use the correct key for inventory
+        const inventory = JSON.parse(localStorage.getItem("wms_products")) || [];
         if (!inventory.length) {
           console.warn("No inventory data found");
         }
@@ -521,7 +522,8 @@
       }
 
       async function getSupplierData() {
-        const suppliers = JSON.parse(localStorage.getItem("suppliers")) || [];
+        // Use the correct key for suppliers
+        const suppliers = JSON.parse(localStorage.getItem("wms_suppliers")) || [];
         if (!suppliers.length) {
           console.warn("No supplier data found");
         }
@@ -554,7 +556,12 @@
 
         tbody.innerHTML = lowStockItems
           .map((item) => {
-            const supplier = suppliers.find((s) => s.id === item.supplierId);
+            // Match supplier by name (case-insensitive) or by ID if present
+            const supplier = suppliers.find(
+              (s) =>
+                (s.name && item.supplier && s.name.toLowerCase() === item.supplier.toLowerCase()) ||
+                (s.id && item.supplierId && s.id === item.supplierId)
+            );
             const stockClass =
               item.quantity < (item.reorderPoint || 5)
                 ? "text-danger"
@@ -566,7 +573,7 @@
               <td>${item.name}</td>
               <td class="${stockClass}">${item.quantity}</td>
               <td>${item.reorderPoint || "N/A"}</td>
-              <td>${supplier?.name || "No supplier"}</td>
+              <td>${supplier?.name || item.supplier || "No supplier"}</td>
               <td class="text-end pe-3">
                 <span class="status-badge ${
                   item.quantity < (item.reorderPoint || 5)
@@ -777,14 +784,31 @@
         document
           .getElementById("exportStockBtn")
           .addEventListener("click", () => {
-            const inventory =
-              JSON.parse(localStorage.getItem("inventory")) || [];
-            exportToCSV(getLowStockItems(inventory), "low_stock_report");
+            const inventory = JSON.parse(localStorage.getItem("wms_products")) || [];
+            const suppliers = JSON.parse(localStorage.getItem("wms_suppliers")) || [];
+            const lowStockItems = getLowStockItems(inventory).map(item => {
+              // Match supplier by name (case-insensitive) or by ID if present
+              const supplier = suppliers.find(
+                (s) =>
+                  (s.name && item.supplier && s.name.toLowerCase() === item.supplier.toLowerCase()) ||
+                  (s.id && item.supplierId && s.id === item.supplierId)
+              );
+              return {
+                id: item.id,
+                name: item.name,
+                quantity: item.quantity,
+                reorderPoint: item.reorderPoint || "N/A",
+                supplier: supplier?.name || item.supplier || "No supplier",
+                status: item.quantity < (item.reorderPoint || 5) ? "Critical" : "Warning"
+              };
+            });
+            exportToCSV(lowStockItems, "low_stock_report");
           });
         document
           .getElementById("runReportBtn")
           .addEventListener("click", loadReportData);
       }
+
     </script>
   </body>
 </html>

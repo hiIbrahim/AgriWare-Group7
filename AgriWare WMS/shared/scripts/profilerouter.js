@@ -42,7 +42,7 @@ export async function loadProfile() {
     // profile access
     if (profileId !== user.id && user.role !== "admin") {
       showNotification("Access denied: Invalid profile permissions", "error");
-      window.location.href = "/shared/403.html";
+      window.location.href = "./403.html";
       return;
     }
 
@@ -64,12 +64,12 @@ export async function loadProfile() {
 
     await loadComponent(
       "profileContainer",
-      `/shared/partials/profiles/${profileView}`
+      "./partials/profiles/" + profileView
     ).catch(async (error) => {
       console.error("Failed to load profile view:", error);
       await loadComponent(
         "profileContainer",
-        "/shared/partials/profiles/userp.html" // Default fallback
+        "./partials/profiles/userp.html"
       );
       showNotification("Loaded basic profile view", "warning");
     });
@@ -81,6 +81,6 @@ export async function loadProfile() {
   } catch (error) {
     console.error("Failed to load profile:", error);
     showNotification("Failed to load profile data", "error");
-    window.location.href = "/shared/401.html";
+    window.location.href = "../shared/401.html";
   }
 }

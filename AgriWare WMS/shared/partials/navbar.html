@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark wms-navbar" id="mainNavbar">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="/" data-required-permission="access_system">
+    <a class="navbar-brand fw-bold" href="../index.html" data-required-permission="access_system">
       <i class="fas fa-warehouse me-2"></i>AgriWare WMS
     </a>
 
@@ -14,7 +14,7 @@
 
       <div class="d-flex align-items-center">
         <!-- Profile Link (visible when logged in) -->
-        <a href="/shared/profile.html" class="nav-link me-3 d-none" id="profileLink">
+        <a href="#" class="nav-link me-3 d-none" id="profileLink">
           <i class="fas fa-user-circle me-1"></i> Profile
         </a>
 
@@ -26,7 +26,7 @@
 
         <!-- Auth Button (toggles between login/logout) -->
         <div id="authSection">
-          <a href="/shared/login.html" class="btn btn-sm btn-secondary" id="authButton">
+          <a href="#" class="btn btn-sm btn-secondary" id="authButton">
             <i class="fas fa-sign-in-alt me-1"></i> Login
           </a>
         </div>
@@ -140,7 +140,7 @@
             ["wms_user", "csrf_token", "last_active"].forEach((key) => {
               localStorage.removeItem(key);
             });
-            window.location.href = "/shared/login.html?logout=true";
+            window.location.href = "../shared/login.html?logout=true";
           };
 
           // Update role badge
@@ -163,5 +163,10 @@
         console.error("Navbar initialization failed:", error);
       }
     });
+
+    // After DOMContentLoaded in your navbar.js or in the <script> of navbar.html
+    const prefix = getRelPrefix();
+    document.getElementById("profileLink").setAttribute("href", prefix + "shared/profile.html");
+    document.getElementById("authButton").setAttribute("href", prefix + "shared/login.html");
   </script>
 </nav>

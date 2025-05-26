@@ -5,9 +5,16 @@ import { checkSession } from "../auth/session.js";
 
 let isNavbarInitialized = false;
 
+// Helper to get relative path prefix
+function getRelPrefix() {
+  // e.g. /admin/dashboard.html => "../"
+  const depth = window.location.pathname.replace(/\\/g, "/").split("/").length - 2;
+  return depth > 1 ? "../" : "./";
+}
+
 export async function loadNavbar() {
   try {
-    const response = await fetch("/shared/partials/navbar.html");
+    const response = await fetch(getRelPrefix() + "shared/partials/navbar.html");
     if (!response.ok) throw new Error("Network response was not ok");
     const html = await response.text();
 
@@ -28,11 +35,18 @@ async function initializeNavbarComponents() {
   try {
     const user = await checkSession(); 
     applyRoleStyling(user);
-    
+
+    // Set profile and login links RELATIVELY
+    const prefix = getRelPrefix();
+    const profileLink = document.getElementById("profileLink");
+    const authButton = document.getElementById("authButton");
+    if (profileLink) profileLink.setAttribute("href", prefix + "shared/profile.html");
+    if (authButton) authButton.setAttribute("href", prefix + "shared/login.html");
+
     if (user) {
       addRoleSpecificNavItems(user);
     }
-    
+
     updateAuthUI(!!user);
     updateRoleBadge();
     attachNavbarHandlers();
@@ -80,40 +94,41 @@ function updateAuthUI(isLoggedIn) {
 
 function handleLogout(e) {
   e.preventDefault();
+  const prefix = getRelPrefix();
   ["wms_user", "csrf_token", "last_active"].forEach((key) => {
     localStorage.removeItem(key);
   });
-  window.location.href = "/shared/login.html?logout=true";
+  window.location.href = prefix + "shared/login.html?logout=true";
 }
 
 function addRoleSpecificNavItems(user) {
   const navContainer = document.getElementById("dynamicNavItems");
   if (!navContainer || !user) return;
 
-  // Clear existing dynamic items
   navContainer.innerHTML = "";
 
+  const prefix = getRelPrefix();
   let navHTML = "";
   switch (user.role) {
     case "admin":
       navHTML = `
         <li class="nav-item">
-          <a class="nav-link" href="/admin/dashboard.html" data-required-permission="view_dashboard">
+          <a class="nav-link" href="${prefix}admin/dashboard.html" data-required-permission="view_dashboard">
             <i class="fas fa-tachometer-alt me-1"></i> Dashboard
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/admin/inventory.html" data-required-permission="view_inventory">
+          <a class="nav-link" href="${prefix}admin/inventory.html" data-required-permission="view_inventory">
             <i class="fas fa-boxes me-1"></i> Inventory
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/admin/staff.html" data-required-permission="manage_staff">
+          <a class="nav-link" href="${prefix}admin/staff.html" data-required-permission="manage_staff">
             <i class="fas fa-users me-1"></i> Staff
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/admin/reports.html" data-required-permission="view_reports">
+          <a class="nav-link" href="${prefix}admin/reports.html" data-required-permission="view_reports">
             <i class="fas fa-chart-bar me-1"></i> Reports
           </a>
         </li>`;
@@ -121,12 +136,12 @@ function addRoleSpecificNavItems(user) {
     case "staff":
       navHTML = `
         <li class="nav-item">
-          <a class="nav-link" href="/admin/inventory.html" data-required-permission="view_inventory">
+          <a class="nav-link" href="${prefix}admin/inventory.html" data-required-permission="view_inventory">
             <i class="fas fa-boxes me-1"></i> Inventory
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/orders/status.html" data-required-permission="view_orders">
+          <a class="nav-link" href="${prefix}orders/status.html" data-required-permission="view_orders">
             <i class="fas fa-clipboard-list me-1"></i> Orders
           </a>
         </li>`;
@@ -134,17 +149,17 @@ function addRoleSpecificNavItems(user) {
     case "worker":
       navHTML = `
         <li class="nav-item" data-permission="scan_items">
-          <a class="nav-link" href="/worker/scanner.html">
+          <a class="nav-link" href="${prefix}worker/scanner.html">
             <i class="fas fa-barcode me-1"></i> Scanner
           </a>
         </li>
         <li class="nav-item" data-permission="view_tasks">
-          <a class="nav-link" href="/worker/tasks.html">
+          <a class="nav-link" href="${prefix}worker/tasks.html">
             <i class="fas fa-tasks me-1"></i> Tasks
           </a>
         </li>
         <li class="nav-item" data-permission="view_shiftlog">
-          <a class="nav-link" href="/worker/shiftlog.html">
+          <a class="nav-link" href="${prefix}worker/shiftlog.html">
             <i class="fas fa-clipboard-list me-1"></i> Shift Log
           </a>
         </li>`;
@@ -152,12 +167,12 @@ function addRoleSpecificNavItems(user) {
     case "user":
       navHTML = `
         <li class="nav-item" data-permission="create_orders">
-          <a class="nav-link" href="/orders/new.html">
+          <a class="nav-link" href="${prefix}orders/new.html">
             <i class="fas fa-plus-circle me-1"></i> New Order
           </a>
         </li>
         <li class="nav-item" data-permission="view_orders">
-          <a class="nav-link" href="/orders/status.html">
+          <a class="nav-link" href="${prefix}orders/status.html">
             <i class="fas fa-history me-1"></i> Order Status
           </a>
         </li>`;
@@ -200,14 +215,12 @@ export function initializeNavbar() {
       container.innerHTML = `
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
           <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="../index.html">
               <i class="fas fa-warehouse me-2"></i>AgriWare WMS
             </a>
-            <div class="d-flex">
-              <a href="/shared/login.html" class="btn btn-sm btn-secondary">
-                <i class="fas fa-sign-in-alt me-1"></i> Login
-              </a>
-            </div>
+            <a href="../shared/login.html" class="btn btn-sm btn-secondary">
+              <i class="fas fa-sign-in-alt me-1"></i> Login
+            </a>
           </div>
         </nav>`;
     }

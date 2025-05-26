@@ -68,7 +68,7 @@ async function initializeApp() {
   try {
     // Allow admin or staff to view, but only admin can manage
     if (!currentUser || !["admin", "staff", "user", "worker"].includes(currentUser.role)) {
-      window.location.href = "/shared/401.html";
+      window.location.href = "../shared/401.html";
       return;
     }
 

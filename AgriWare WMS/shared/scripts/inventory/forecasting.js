@@ -24,7 +24,7 @@ export function predictStockouts(inventory) {
   
   // Utility function to update historical data
   export function updateUsageHistory(itemId, quantityUsed) {
-    const inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+    const inventory = JSON.parse(localStorage.getItem('wms_products')) || [];
     const item = inventory.find(i => i.id === itemId);
     
     if (item) {
@@ -43,6 +43,6 @@ export function predictStockouts(inventory) {
         .reduce((sum, entry) => sum + entry.quantityUsed, 0);
       
       item.last30daysUsage = recentUsage;
-      localStorage.setItem('inventory', JSON.stringify(inventory));
+      localStorage.setItem('wms_products', JSON.stringify(inventory));
     }
   }

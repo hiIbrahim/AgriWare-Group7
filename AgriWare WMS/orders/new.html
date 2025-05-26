@@ -450,6 +450,11 @@
         opacity: 0.5;
         font-weight: 600;
       }
+      #orderNotes::placeholder {
+        color: var(--text-secondary);
+        opacity: 0.5;
+        font-weight: 600;
+      }
       @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px);}
         to { opacity: 1; transform: translateY(0);}
@@ -518,6 +523,13 @@
                 <div class="form-group required">
                   <label for="shippingAddress">Shipping Address</label>
                   <textarea class="form-control" id="shippingAddress" rows="3" required placeholder="Full shipping address including postal code"></textarea>
+                </div>
+                <div class="form-group required">
+                  <label for="productSelect">Product</label>
+                  <select class="form-control" id="productSelect" required>
+                    <option value="">-- Select a product --</option>
+                    <!-- Options will be rendered by JS -->
+                  </select>
                 </div>
               </form>
             </div>

@@ -354,6 +354,36 @@ body {
   border: 1px solid var(--card-border);
 }
 
+/* Make date input placeholder text black */
+input[type="date"]::placeholder {
+  color: #222 !important;
+  opacity: 1 !important;
+}
+
+/* Make the calendar icon in date inputs always visible */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0); /* Makes icon dark */
+  opacity: 1;
+}
+
+input[type="date"]::-webkit-input-placeholder { color: #222 !important; }
+input[type="date"]::-moz-placeholder { color: #222 !important; }
+input[type="date"]:-ms-input-placeholder { color: #222 !important; }
+input[type="date"]::placeholder { color: #222 !important; }
+
+input[type="date"] {
+  background-color: #fff !important;
+  color: #222 !important;
+}
+
+/* For Firefox (icon is not stylable, but this helps) */
+input[type="date"] {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 10h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z' /><path d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zm0-13H5V6h14v1z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.5em 1.5em;
+}
+
 @media (max-width: 768px) {
   .inventory-controls .btn-group {
     width: 100%;

@@ -14,7 +14,7 @@ const MOCK_USERS = [
       "manage_inventory",
       "view_reports",
     ],
-    avatar: "/assets/avatars/admin.png",
+    avatar: "../assets/avatars/admin.png", // CHANGED
   },
   {
     id: "staff-001",
@@ -30,7 +30,7 @@ const MOCK_USERS = [
       "view_staff",
       "view_orders",
     ],
-    avatar: "/assets/avatars/staff.png",
+    avatar: "../assets/avatars/staff.png", // CHANGED
   },
   {
     id: "worker-001",
@@ -39,7 +39,7 @@ const MOCK_USERS = [
     role: "worker",
     name: "Field Worker",
     permissions: ["view_tasks", "scan_items", "clock_in", "view_shiftlog"],
-    avatar: "/assets/avatars/worker.png",
+    avatar: "../assets/avatars/worker.png", // CHANGED
   },
 
   {
@@ -49,7 +49,7 @@ const MOCK_USERS = [
     role: "user",
     name: "Regular User", // Added name
     permissions: ["create_orders", "view_orders", "edit_profile"],
-    avatar: "/assets/avatars/user.png", // Added avatar
+    avatar: "../assets/avatars/user.png", // CHANGED
   },
 ];
 

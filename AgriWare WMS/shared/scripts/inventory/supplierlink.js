@@ -8,7 +8,7 @@ export function linkItemsToSuppliers(inventory, suppliers) {
     return inventory.map(item => ({
       ...item,
       supplierInfo: suppliers.find(s => s.id === item.supplierId) || null,
-      supplierLink: `/suppliers.html#${item.supplierId}`
+      supplierLink: `../admin/suppliers.html#${item.supplierId}`
     }));
   }
   

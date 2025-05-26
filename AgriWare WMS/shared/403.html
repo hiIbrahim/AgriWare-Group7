@@ -241,8 +241,8 @@
       document.addEventListener("DOMContentLoaded", async () => {
         // Load minimal navbar and footer
         await Promise.all([
-          loadComponent("navbarContainer", "/shared/partials/navbar.html"),
-          loadComponent("footerContainer", "/shared/partials/footer.html"),
+          loadComponent("navbarContainer", "../shared/partials/navbar.html"),
+          loadComponent("footerContainer", "../shared/partials/footer.html"),
         ]);
         
         // Set minimal navbar styling
@@ -318,7 +318,7 @@
             await new Promise(resolve => setTimeout(resolve, 1500));
             
             // Redirect to support page if available
-            window.location.href = "/shared/support.html?request_sent=true";
+            window.location.href = "../shared/support.html?request_sent=true";
             
           } catch (error) {
             showNotification("Failed to send access request", "error");

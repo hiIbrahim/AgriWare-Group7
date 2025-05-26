@@ -3,14 +3,14 @@
 // Session Configuration
 export const SESSION_DURATION = 8 * 60 * 60 * 1000; // 8 hours
 export const SESSION_TIMEOUT = 24 * 60 * 60 * 1000; // 24 hours
-export const DEFAULT_REDIRECT = "/shared/login.html";
+export const DEFAULT_REDIRECT = "../shared/login.html"; // CHANGED
 
 // Role Path Configuration
 export const ROLE_PATHS = {
-  admin: ["/admin/", "/orders/status.html", "/orders/new.html", "/shared/"],
-  staff: ["/admin/inventory.html", "/orders/status.html", "/shared/"],
-  worker: ["/worker/", "/shared/"],
-  user: ["/orders/", "/shared/"]
+  admin: ["../admin/", "../orders/status.html", "../orders/new.html", "../shared/"],
+  staff: ["../admin/inventory.html", "../orders/status.html", "../shared/"],
+  worker: ["../worker/", "../shared/"],
+  user: ["../orders/", "../shared/"]
 };
 
 // CSRF Configuration
@@ -83,8 +83,8 @@ export const APP_CONFIG = {
   version: "1.0.0",
   minPasswordLength: 8,
   apiEndpoints: {
-    login: "/api/auth/login",
-    logout: "/api/auth/logout"
+    login: "../api/auth/login", // CHANGED
+    logout: "../api/auth/logout" // CHANGED
   },
   defaultPageSize: 25
 };

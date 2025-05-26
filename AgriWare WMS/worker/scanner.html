@@ -220,18 +220,18 @@
       async function setupWorkerNavbar() {
         const user = await checkSession();
         if (!user || user.role !== "worker") {
-          window.location.href = "/shared/403.html";
+          window.location.href = "../shared/403.html";
           return;
         }
         document.getElementById("dynamicNavItems").innerHTML = `
           <li class="nav-item">
-            <a class="nav-link" href="/worker/tasks.html"><i class="fas fa-tasks me-1"></i> Tasks</a>
+            <a class="nav-link" href="tasks.html"><i class="fas fa-tasks me-1"></i> Tasks</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/worker/scanner.html"><i class="fas fa-barcode me-1"></i> Scanner</a>
+            <a class="nav-link" href="scanner.html"><i class="fas fa-barcode me-1"></i> Scanner</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/worker/shiftlog.html"><i class="fas fa-clock me-1"></i> Shift Log</a>
+            <a class="nav-link" href="shiftlog.html"><i class="fas fa-clock me-1"></i> Shift Log</a>
           </li>
         `;
         const roleBadge = document.getElementById("roleBadge");
@@ -248,12 +248,13 @@
             ["wms_user", "csrf_token", "last_active"].forEach((key) => {
               localStorage.removeItem(key);
             });
-            window.location.href = "/shared/login.html?logout=true";
+            window.location.href = "../shared/login.html?logout=true";
           };
         }
         const profileLink = document.getElementById("profileLink");
         if (profileLink && user) {
           profileLink.classList.remove("d-none");
+          profileLink.href = "../shared/profile.html";
         }
       }
 

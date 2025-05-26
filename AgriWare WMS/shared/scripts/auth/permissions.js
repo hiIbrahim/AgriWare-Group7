@@ -95,7 +95,7 @@ export function requirePermission(permission) {
 export async function redirectIfUnauthorized(action) {
   if (!canPerformAction(action)) {
     const currentPath = encodeURIComponent(window.location.pathname);
-    window.location.href = `/shared/403.html?from=${currentPath}&requires=${encodeURIComponent(action)}`;
+    window.location.href = `../shared/403.html?from=${currentPath}&requires=${encodeURIComponent(action)}`; // CHANGED
     return false;
   }
   return true;

@@ -4,7 +4,7 @@ export function redirectBasedOnRole(user) {
   try {
     if (!user) {
       localStorage.removeItem("wms_user");
-      window.location.href = "/shared/login.html?error=no_user";
+      window.location.href = "../shared/login.html?error=no_user"; // CHANGED
       return;
     }
 
@@ -25,6 +25,6 @@ export function redirectBasedOnRole(user) {
   } catch (error) {
     console.error("Redirect error:", error);
     localStorage.clear();
-    window.location.href = "/shared/404.html?error=system_error";
+    window.location.href = "../shared/404.html?error=system_error"; // CHANGED
   }
 }
